@@ -1,0 +1,554 @@
+/* Entwurf 2 – eigenständig · Augenarztpraxis Dr. med. Vera Christoph, Schleswig
+   Mobile first: Grundstil ab 320 px, größere Bildschirme nur über min-width.
+   37.5em (600 px) Tablet · 48em (768 px) zweispaltig · 56.25em (900 px) volle
+   Kopfzeile ohne Aktionsleiste · 68.75em (1100 px) 12er-Raster mit Randspalte */
+
+/* ---------- Schriften (lokal, SIL Open Font License) ---------- */
+@font-face { font-family: 'Source Sans 3'; src: url('../fonts/source-sans-3-latin-wght-normal.woff2') format('woff2'); font-weight: 200 900; font-display: swap; }
+@font-face { font-family: 'Source Serif 4'; src: url('../fonts/source-serif-4-latin-wght-normal.woff2') format('woff2'); font-weight: 200 900; font-display: swap; }
+
+/* ---------- Gestaltungswerte ---------- */
+:root {
+  /* Farben aus dem Praxislogo; gemessene Kontraste in der README */
+  --text: #25232f; --text-leise: #4b4860; --tinte: #615e79; --blau: #275895; --blau-dunkel: #1d4477;
+  --lederhaut: #eef0f6; --iris: #c2c3d6; --irisring: #a5a3bb; --wimpern: #89859f; --linie: #d9dbe7; --weiss: #fff;
+  --schrift: 'Source Sans 3', 'Segoe UI', system-ui, sans-serif;
+  --schrift-titel: 'Source Serif 4', Georgia, serif;
+  /* Schriftgrößen – nirgends unter 18 px */
+  --fs-klein: 1.125rem; --fs-text: 1.1875rem; --fs-gross: 1.25rem;
+  --fs-lead: clamp(1.25rem, 1.1rem + .55vw, 1.5rem);
+  --fs-h1: clamp(2.125rem, 1.5rem + 2.5vw, 3.5rem);
+  --fs-h2: clamp(1.625rem, 1.35rem + 1.15vw, 2.375rem);
+  --fs-h3: clamp(1.25rem, 1.17rem + .35vw, 1.4375rem);
+  /* Abstände im 8er-Raster */
+  --a2: 1rem; --a3: 1.5rem; --a4: 2rem; --a5: 3rem; --a6: 4rem;
+  --abschnitt: clamp(3rem, 2rem + 4vw, 6rem);
+  --rand-seite: clamp(1rem, .4rem + 2.8vw, 3rem);
+  --rinne: clamp(1rem, .5rem + 1.6vw, 2rem);
+  --breite: 78rem; --radius: .375rem; --haar: 1px solid var(--linie);
+  --leiste: 4.25rem; /* Höhe der Aktionsleiste auf dem Telefon */
+  --schatten: 0 1px 2px rgb(37 35 47 / .06), 0 12px 32px rgb(37 35 47 / .09);
+}
+
+/* ---------- Grundlagen ---------- */
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; color-scheme: light; scroll-padding: 1rem 0 calc(var(--leiste) + 1rem); }
+body {
+  margin: 0; padding-bottom: calc(var(--leiste) + env(safe-area-inset-bottom, 0px));
+  background: var(--weiss); color: var(--text); font: var(--fs-text)/1.6 var(--schrift);
+  overflow-wrap: break-word; -webkit-hyphens: auto; hyphens: auto; hyphenate-limit-chars: 10 4 4;
+}
+img { max-width: 100%; height: auto; }
+h1, h2, h3 { margin: 0 0 var(--a2); font-family: var(--schrift-titel); font-weight: 600; line-height: 1.2; letter-spacing: -.01em; color: var(--tinte); text-wrap: balance; }
+h1 { font-size: var(--fs-h1); line-height: 1.1; color: var(--text); }
+h2 { font-size: var(--fs-h2); }
+h3 { font-size: var(--fs-h3); margin-top: var(--a4); }
+/* Überschriften und Fachbegriffe nur an gesetzten Trennstellen (&shy;) umbrechen */
+h1, h2, h3, .bereich-link, .bereich-sprung-titel, .mitbringen strong, .fachbegriff, .inhaltsverzeichnis a, .fuss-leitsatz, .wort { -webkit-hyphens: manual; hyphens: manual; }
+p, ul, ol, dl { margin: 0 0 var(--a2); }
+p { max-width: 68ch; }
+strong, b { font-weight: 650; }
+address { margin: 0 0 var(--a2); font-style: normal; }
+a { color: var(--blau); text-decoration-thickness: 1px; text-underline-offset: .18em; }
+a:hover { color: var(--blau-dunkel); text-decoration-thickness: 2px; }
+a[href^="tel:"] { white-space: nowrap; }
+:focus-visible { outline: 3px solid var(--blau); outline-offset: 3px; }
+[hidden] { display: none !important; }
+
+/* Nur für Screenreader */
+.unsichtbar { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+
+/* Fehlende Angaben – bewusst sichtbar */
+.platzhalter {
+  padding: 0 .3em; border: 1px dashed var(--wimpern); border-radius: 3px; background: var(--weiss); color: var(--text-leise);
+  -webkit-box-decoration-break: clone; box-decoration-break: clone;
+}
+
+/* Symbole: Linien in currentColor, Flächen in Iris (.f1) und Lederhaut (.f2) */
+.symbol { flex: none; width: 1.5rem; height: 1.5rem; }
+.symbol .f1 { fill: var(--iris); }
+.symbol .f2 { fill: var(--lederhaut); }
+.symbol .f3 { fill: var(--weiss); }
+.symbol-gross { width: 3.5rem; height: 3.5rem; color: var(--tinte); }
+.symbol-bereich { width: 3rem; height: 3rem; color: var(--tinte); }
+.symbol-bild { width: 7rem; height: 7rem; color: var(--tinte); }
+/* Auf Lederhaut-Flächen die hellen Symbolflächen weiß halten */
+.merksatz .f2, .hinweis .f2, .kasten .f2, .foto-platzhalter .f2, .fuss .f2 { fill: var(--weiss); }
+
+.sprunglink {
+  position: absolute; top: var(--a2); left: var(--a2); z-index: 100; padding: .75rem 1.25rem;
+  border-radius: var(--radius); background: var(--blau); color: var(--weiss); font-weight: 650; transform: translateY(-250%);
+}
+.sprunglink:focus { transform: none; color: var(--weiss); }
+
+/* Inhaltsbreite */
+.raster, .kopf-innen { width: min(100% - 2 * var(--rand-seite), var(--breite)); margin-inline: auto; }
+
+/* ---------- Schaltflächen und Links ---------- */
+.knopf {
+  display: inline-flex; align-items: center; justify-content: center; gap: .5rem; min-height: 3rem; padding: .625rem 1.375rem;
+  border: 2px solid var(--blau); border-radius: var(--radius); background: var(--blau); color: var(--weiss);
+  font: inherit; font-weight: 650; line-height: 1.2; text-align: center; text-decoration: none; cursor: pointer;
+  transition: background-color .15s, border-color .15s, color .15s;
+}
+.knopf:hover { border-color: var(--blau-dunkel); background: var(--blau-dunkel); color: var(--weiss); }
+.knopf .symbol { width: 1.375rem; height: 1.375rem; }
+.knopf-zweit { background: var(--weiss); color: var(--blau); }
+.knopf-zweit:hover { background: var(--lederhaut); color: var(--blau-dunkel); }
+.knopf-klein { min-height: 2.75rem; padding: .5rem 1rem; }
+.knopf-gross { min-height: 3.5rem; padding-inline: 1.75rem; font-size: 1.375rem; }
+.knopf-gross .symbol { width: 1.75rem; height: 1.75rem; }
+.knopf-reihe { display: flex; flex-wrap: wrap; gap: .75rem; margin-block: var(--a3); }
+/* Links außerhalb von Fließtext: Klickfläche mindestens 44 px hoch */
+.mehr-link, .praxiskarte-telefon a, .download, .karte-extern, .karte-quelle a, .hoch-link, .notfall-nummer, .gross-link, .sprungliste a, .angaben a, .fuss-email a, .fuss-telefon, .fuss-link, .fuss-recht a { display: inline-flex; align-items: center; min-height: 2.75rem; }
+.mehr-link { gap: .5rem; font-weight: 650; }
+.mehr-link .symbol { width: 1.25rem; height: 1.25rem; transition: transform .15s; }
+.mehr-link:hover .symbol { transform: translateX(3px); }
+
+/* ---------- Kopf ---------- */
+.kopf { border-bottom: var(--haar); background: var(--weiss); }
+.kopf-innen { display: grid; grid-template: "marke knopf" "nav nav" / minmax(0, 1fr) auto; align-items: center; column-gap: var(--a2); padding-block: .75rem; }
+.marke { grid-area: marke; display: flex; align-items: center; gap: .5rem; min-height: 2.75rem; color: var(--text); text-decoration: none; }
+.marke:hover { color: var(--text); }
+.marke-bild { flex: none; width: 2.25rem; }
+.marke-text { display: flex; flex-direction: column; line-height: 1.2; }
+.marke-name { font: 600 1.125rem var(--schrift-titel); color: var(--tinte); }
+.marke-zusatz { display: none; font-size: var(--fs-klein); color: var(--text-leise); } /* erst ab 480 px, sonst wird der Kopf zu hoch */
+.marke-ort { display: none; }
+
+/* Menü-Knopf: nur mit JavaScript */
+.menue-knopf { grid-area: knopf; display: none; }
+.js .menue-knopf {
+  display: inline-flex; align-items: center; gap: .3rem; min-height: 3rem; padding: .5rem .625rem;
+  border: 2px solid var(--tinte); border-radius: var(--radius); background: var(--weiss); color: var(--tinte);
+  font: inherit; font-weight: 650; cursor: pointer;
+}
+.menue-zu, .menue-knopf[aria-expanded="true"] .menue-auf { display: none; }
+.menue-knopf[aria-expanded="true"] .menue-zu { display: block; }
+.menue-knopf[aria-expanded="true"] { background: var(--lederhaut); }
+
+/* Hauptnavigation – ohne JavaScript immer sichtbar (umbrechendes Raster) */
+.hauptnav { grid-area: nav; }
+.hauptnav-liste { display: grid; grid-template-columns: repeat(auto-fit, minmax(8.5rem, 1fr)); gap: .5rem; margin: .75rem 0 0; padding: 0; list-style: none; }
+.hauptnav a {
+  display: flex; align-items: center; min-height: 3rem; padding: .5rem .875rem;
+  border: var(--haar); border-radius: var(--radius); color: var(--text); font-weight: 550; text-decoration: none;
+}
+.hauptnav a:hover { border-color: var(--tinte); color: var(--text); }
+.hauptnav a[aria-current="page"] { border-color: var(--tinte); background: var(--lederhaut); box-shadow: inset 5px 0 0 var(--tinte); color: var(--tinte); font-weight: 700; }
+/* Mit JavaScript: eingeklappt, öffnet als Liste unter dem Kopf */
+.js .hauptnav-liste { display: none; grid-template-columns: 1fr; gap: 0; }
+.js .hauptnav-liste.ist-offen { display: grid; }
+.js .hauptnav a { border: 0; border-top: var(--haar); border-radius: 0; padding-left: 1rem; }
+
+/* Aktionsleiste „Anrufen · Termin vereinbaren“: auf dem Telefon fest am unteren Rand */
+.kopf-aktionen {
+  position: fixed; inset: auto 0 0; z-index: 50; display: flex; gap: .5rem;
+  padding: .625rem var(--rand-seite) calc(.625rem + env(safe-area-inset-bottom, 0px));
+  border-top: var(--haar); background: var(--weiss); box-shadow: 0 -6px 20px rgb(37 35 47 / .08);
+}
+.kopf-aktionen > * { flex: 1 1 auto; min-height: 3rem; padding-inline: .5rem; }
+.kopf-telefon .symbol { display: none; }
+.kopf-telefon {
+  display: inline-flex; align-items: center; justify-content: center; gap: .4rem;
+  border: 2px solid var(--blau); border-radius: var(--radius); background: var(--weiss); color: var(--blau); font-weight: 650; text-decoration: none;
+}
+.kopf-telefon:hover { background: var(--lederhaut); }
+.kopf-telefon-lang { display: none; }
+
+/* ---------- Gerüst: Stichwort, Randspalte, Abschnitte ---------- */
+.stichwort { display: flex; align-items: center; gap: .625rem; margin: 0 0 var(--a2); color: var(--tinte); font-size: var(--fs-klein); font-weight: 700; }
+.stichwort::before, .fuss-titel::before { content: ''; flex: none; width: 1.5rem; height: 3px; border-radius: 2px; background: var(--tinte); }
+.seitenkopf { padding-block: var(--a5) var(--a4); }
+.seitenkopf h1 { margin-bottom: var(--a3); }
+.abschnitt { padding-block: var(--abschnitt); border-top: var(--haar); }
+.abschnitt > .haupt > :last-child { margin-bottom: 0; }
+.einleitung { max-width: 60ch; font-size: var(--fs-lead); line-height: 1.5; }
+.einleitung-klein { max-width: 64ch; font-size: var(--fs-gross); line-height: 1.55; }
+.rand-text { max-width: 40ch; color: var(--text-leise); }
+.rand-fakt { display: flex; flex-wrap: wrap; align-items: baseline; gap: .25rem .5rem; color: var(--text-leise); font-weight: 600; }
+.rand-fakt .symbol { align-self: center; color: var(--tinte); }
+.rand-zahl { font: 600 2.5rem/1 var(--schrift-titel); color: var(--tinte); }
+.merksatz {
+  display: grid; grid-template-columns: auto 1fr; align-items: center; gap: .875rem; max-width: 34rem;
+  padding: var(--a2); border-radius: var(--radius); background: var(--lederhaut); font-weight: 650;
+}
+.zweiteilig { display: grid; gap: var(--a4); }
+
+/* Listen mit Symbol oder Haken */
+.haken-liste { display: grid; gap: .75rem; margin-block: var(--a3); padding: 0; list-style: none; }
+.haken-liste li { display: grid; grid-template-columns: 2rem 1fr; gap: .75rem; align-items: start; max-width: 64ch; }
+.haken-liste .symbol { width: 1.75rem; height: 1.75rem; margin-top: .1rem; color: var(--tinte); }
+.punkt-liste { padding-left: 1.25rem; }
+.punkt-liste li { margin-bottom: .375rem; max-width: 66ch; }
+.punkt-liste li::marker { color: var(--tinte); }
+
+/* Hinweiskasten mit Tinte-Kante */
+.hinweis {
+  display: grid; gap: .5rem var(--a2); align-items: start; margin-block: var(--a3);
+  padding: var(--a3) var(--a3) var(--a3) 1.25rem; border-left: 6px solid var(--tinte); border-radius: 0 var(--radius) var(--radius) 0; background: var(--lederhaut);
+}
+.hinweis-symbol { width: 2.5rem; height: 2.5rem; color: var(--tinte); }
+.hinweis-titel { margin: .25rem 0 .5rem; font-size: var(--fs-h3); color: var(--text); }
+.hinweis-inhalt > :last-child { margin-bottom: 0; }
+.kasten { padding: var(--a3); border-radius: var(--radius); background: var(--lederhaut); }
+.kasten h3 { margin-top: 0; }
+
+/* Foto-Platzhalter: gestrichelte Fläche */
+.foto-platzhalter {
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: var(--a2); min-height: 15rem; margin: 0;
+  padding: var(--a3); border: 2px dashed var(--irisring); border-radius: var(--radius); background: var(--lederhaut); text-align: center;
+}
+.foto-platzhalter .symbol { width: 4.5rem; height: 4.5rem; color: var(--wimpern); }
+.foto-platzhalter figcaption { max-width: 24ch; color: var(--text-leise); }
+.foto-platzhalter .platzhalter { padding: 0; border: 0; background: none; }
+
+/* ---------- Startseite ---------- */
+.einstieg { display: grid; gap: var(--a5); padding-block: var(--a4) var(--abschnitt); }
+.einstieg h1 { max-width: 20ch; margin-bottom: var(--a3); }
+.einstieg .knopf-reihe { margin-top: var(--a4); }
+.termin-notiz { display: flex; align-items: flex-start; gap: .625rem; max-width: 50ch; color: var(--text-leise); }
+.termin-notiz .symbol { margin-top: .1rem; color: var(--tinte); }
+
+/* Praxiskarte – angelehnt an die Visitenkarte */
+.praxiskarte {
+  justify-self: start; width: 100%; max-width: 24rem; padding: var(--a4) var(--a4) var(--a3);
+  border: var(--haar); border-radius: .5rem; background: var(--weiss); box-shadow: var(--schatten); color: var(--blau);
+}
+.praxiskarte p, .praxiskarte address { margin: 0; }
+.praxiskarte-marke { display: block; width: 12.5rem; margin: 0 auto var(--a3); }
+.praxiskarte-name { font-size: 1.5rem; line-height: 1.25; }
+.praxiskarte .praxiskarte-adresse { margin-top: var(--a3); }
+.praxiskarte-telefon a { gap: .3em; font-size: var(--fs-gross); font-weight: 650; }
+
+/* Wochenleiste: Zeiten als Text, darunter bzw. daneben ein Balken je Tag */
+.woche { margin-block: var(--a3) var(--a2); }
+.woche-liste { margin: 0; padding: 0; list-style: none; border-top: var(--haar); }
+.woche-tag { display: grid; gap: .25rem 1rem; padding-block: .875rem; border-bottom: var(--haar); }
+.woche-name { font: 600 var(--fs-gross) var(--schrift-titel); }
+.woche-zeiten { display: flex; flex-wrap: wrap; gap: 0 1.5rem; font-variant-numeric: tabular-nums; }
+.zeit { white-space: nowrap; }
+.woche-skala { display: none; }
+.woche-balken, .woche-skala { grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); }
+.woche-balken { display: grid; height: .75rem; margin-top: .25rem; overflow: hidden; border-radius: 2px; background: var(--lederhaut); }
+.woche-balken span + span { box-shadow: inset 1px 0 var(--linie); }
+.woche-balken .an { background: var(--tinte); box-shadow: none; }
+.woche-zusatz { margin-top: var(--a2); font-style: italic; color: var(--text-leise); }
+
+/* Leistungsbereiche als Kacheln; die ganze Kachel ist klickbar */
+.bereiche { display: grid; gap: var(--a2); margin: var(--a4) 0 0; padding: 0; list-style: none; }
+.bereich-kachel {
+  position: relative; display: flex; flex-direction: column; gap: .375rem; padding: var(--a3);
+  border: var(--haar); border-radius: var(--radius); background: var(--weiss); transition: border-color .15s;
+}
+.bereich-kachel:hover, .bereich-kachel:focus-within { border-color: var(--blau); }
+.bereich-kopf { display: flex; align-items: center; justify-content: space-between; margin-bottom: .5rem; }
+.bereich-nr { font: 600 2rem/1 var(--schrift-titel); color: var(--tinte); font-variant-numeric: lining-nums; }
+.bereich-link { display: flex; align-items: center; min-height: 2.75rem; font: 600 var(--fs-h3)/1.25 var(--schrift-titel); text-decoration: none; }
+.bereich-link::after { content: ''; position: absolute; inset: 0; border-radius: inherit; }
+.bereich-kachel:hover .bereich-link { text-decoration: underline; }
+.bereich-text { color: var(--text-leise); }
+.bereich-anzahl { margin-top: auto; padding-top: .5rem; color: var(--tinte); font-weight: 650; }
+
+/* Anfahrt in Kürze */
+.wege { display: grid; margin-block: var(--a3); }
+.wege > div { padding-block: .75rem; border-top: var(--haar); }
+.wege dt, .kontaktwege dt { display: flex; align-items: center; gap: .625rem; color: var(--tinte); font-weight: 700; }
+.wege dt .symbol, .kontaktwege dt .symbol { width: 1.75rem; height: 1.75rem; }
+.wege dd { margin: .25rem 0 0; max-width: 60ch; }
+
+/* ---------- Parken ---------- */
+.park-liste { display: grid; gap: .75rem; margin: var(--a2) 0; padding: 0; list-style: none; }
+.park-liste li { display: grid; grid-template-columns: 3rem minmax(0, 1fr); gap: .75rem; align-items: start; line-height: 1.45; }
+.park-nr {
+  display: grid; place-items: center; min-width: 2.75rem; height: 2.75rem; padding-inline: .25rem; border-radius: var(--radius);
+  background: var(--blau); color: var(--weiss); font-size: var(--fs-klein); font-weight: 700; line-height: 1;
+}
+.park-liste-gross li { padding: var(--a2); border: var(--haar); border-radius: var(--radius); }
+.aufklapper { margin-block: var(--a3); border: var(--haar); border-radius: var(--radius); }
+.aufklapper summary { display: flex; align-items: center; gap: .5rem; min-height: 3rem; padding: .5rem var(--a2); color: var(--blau); font-weight: 650; cursor: pointer; }
+.aufklapper[open] summary { border-bottom: var(--haar); }
+.aufklapper .park-liste { margin: 0; padding: var(--a2); }
+.faltblatt { margin-block: var(--a4); padding: var(--a3); border: var(--haar); border-left: 6px solid var(--blau); border-radius: 0 var(--radius) var(--radius) 0; }
+.download { align-items: flex-start; gap: .75rem; font-size: var(--fs-gross); font-weight: 650; }
+.download .symbol { width: 1.75rem; height: 1.75rem; margin-top: .1rem; }
+.download-info { color: var(--text-leise); font-weight: 400; white-space: nowrap; }
+.faltblatt-quelle { margin: .5rem 0 0; color: var(--text-leise); }
+
+/* ---------- Karte (Zwei-Klick-Lösung) ---------- */
+.karte { margin-top: var(--a4); overflow: hidden; border: var(--haar); border-radius: var(--radius); background: var(--lederhaut); }
+.karte-flaeche { position: relative; display: flex; align-items: center; justify-content: center; min-height: 22rem; padding: var(--a2); }
+.karte-bild, .karte-flaeche iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; object-fit: cover; }
+.karte-hinweis { position: relative; max-width: 34rem; padding: var(--a3); border-radius: var(--radius); background: var(--weiss); box-shadow: var(--schatten); }
+.karte-hinweis p { margin-bottom: var(--a2); }
+.karte-hinweis .karte-ohne-js { margin: 0; }
+.js .karte-ohne-js { display: none; }
+.karte-leiste {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: .25rem var(--a3);
+  padding: .5rem var(--a2); border-top: var(--haar); background: var(--weiss);
+}
+.karte-leiste p { margin: 0; }
+.karte-adresse { display: flex; align-items: center; gap: .5rem; font-weight: 650; }
+.karte-adresse .symbol { color: var(--tinte); }
+.karte-extern, .karte-quelle a { gap: .4rem; }
+.karte-extern .symbol { width: 1.125rem; height: 1.125rem; }
+
+/* ---------- Leistungen ---------- */
+.bereich-nav { padding-bottom: var(--abschnitt); }
+.bereich-sprung { display: grid; gap: .75rem; margin: 0; padding: 0; list-style: none; }
+.bereich-sprung a {
+  display: grid; grid-template: "symbol titel" "symbol anzahl" / auto minmax(0, 1fr); column-gap: var(--a2); align-items: center;
+  height: 100%; min-height: 2.75rem; padding: .875rem var(--a2); border: var(--haar); border-radius: var(--radius);
+  color: var(--text); text-decoration: none; transition: border-color .15s, background-color .15s;
+}
+.bereich-sprung a:hover { border-color: var(--blau); background: var(--lederhaut); color: var(--text); }
+.bereich-sprung .bereich-nr { display: none; }
+.bereich-sprung .symbol-bereich { grid-area: symbol; width: 2.75rem; height: 2.75rem; }
+.bereich-sprung-titel { grid-area: titel; color: var(--blau); font-weight: 650; line-height: 1.3; }
+.bereich-sprung .bereich-anzahl { grid-area: anzahl; margin: 0; padding: 0; color: var(--text-leise); font-weight: 400; }
+.bereich .rand-kleber { display: flex; flex-wrap: wrap; align-items: center; gap: .25rem 1.25rem; margin-bottom: var(--a2); }
+.bereich .rand-kleber p { margin: 0; }
+.bereich-marke { display: flex; align-items: center; gap: .75rem; }
+.hoch-link { gap: .4rem; }
+.hoch-link .symbol { width: 1.125rem; height: 1.125rem; }
+.leistungsliste { margin: var(--a4) 0 0; padding: 0; list-style: none; }
+.leistungsliste li { position: relative; padding: .875rem 0 .875rem 1.75rem; border-top: var(--haar); break-inside: avoid; }
+/* Aufzählungszeichen: kleine Pupille mit Iris-Hof */
+.leistungsliste li::before {
+  content: ''; position: absolute; top: 1.45rem; left: .2rem; width: .55rem; height: .55rem;
+  border-radius: 50%; background: var(--tinte); box-shadow: 0 0 0 .2rem var(--iris);
+}
+.fachbegriff { color: var(--tinte); font-weight: 700; }
+.bereich-notfall .einleitung-klein { font-weight: 600; }
+
+/* Notfallnummern */
+.notfall-kacheln { display: grid; gap: var(--a2); margin: var(--a3) 0; padding: 0; list-style: none; }
+.notfall-kacheln li {
+  display: flex; flex-direction: column; gap: .125rem; padding: var(--a2) var(--a3);
+  border: var(--haar); border-top: 5px solid var(--tinte); border-radius: var(--radius); background: var(--weiss);
+}
+.notfall-wann { color: var(--tinte); font-weight: 700; }
+.notfall-nummer {
+  align-self: flex-start; min-width: 2.75rem; 
+  font: 600 clamp(1.625rem, 1.4rem + 1vw, 2.125rem) var(--schrift-titel); text-decoration: none; font-variant-numeric: lining-nums;
+}
+.notfall-nummer:hover { text-decoration: underline; }
+.notfall-wer { color: var(--text-leise); }
+.notfall-kacheln .notfall-112 { border-color: var(--tinte); background: var(--tinte); }
+.notfall-112 .notfall-wann, .notfall-112 .notfall-wer, .notfall-112 a { color: var(--weiss); }
+.notfall-112 .notfall-nummer:focus-visible { outline-color: var(--weiss); }
+
+/* ---------- Sprechzeiten ---------- */
+/* Telefon: jede Zeile als kleines Raster (Tag oben, darunter vormittags | nachmittags) */
+.zeiten-tabelle { display: block; width: 100%; max-width: 46rem; margin-block: var(--a2); border-collapse: collapse; font-variant-numeric: tabular-nums; }
+.zeiten-tabelle thead, .zeiten-tabelle tbody { display: block; }
+.zeiten-tabelle tr { display: grid; grid-template-columns: 1fr 1fr; gap: .125rem var(--a2); padding-block: .75rem; border-bottom: var(--haar); }
+.zeiten-tabelle th, .zeiten-tabelle td { display: block; padding: 0; text-align: left; }
+.zeiten-tabelle thead tr { padding-block: 0 .5rem; border-bottom: 2px solid var(--tinte); }
+.zeiten-tabelle thead th { color: var(--tinte); font-size: var(--fs-klein); font-weight: 700; }
+.zeiten-tabelle thead th:first-child { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.zeiten-tabelle tbody th { grid-column: 1 / -1; font: 600 var(--fs-gross) var(--schrift-titel); }
+.zeiten-tabelle .zeit { display: block; }
+.zeiten-nachsatz { display: flex; align-items: center; gap: .625rem; font-size: var(--fs-gross); font-weight: 650; color: var(--tinte); }
+.zeiten-kompakt { margin: 0 0 .5rem; }
+.zeiten-kompakt > div { padding-block: .375rem; border-bottom: var(--haar); }
+.zeiten-kompakt dt { font-weight: 650; }
+.zeiten-kompakt dd { margin: 0; font-variant-numeric: tabular-nums; }
+.zeiten-zusatz { color: var(--text-leise); font-style: italic; }
+
+.kontaktwege { display: grid; margin: var(--a3) 0 0; }
+.kontaktwege > div { display: grid; gap: .25rem var(--a3); padding-block: var(--a2); border-top: var(--haar); }
+.kontaktwege > div:last-child { border-bottom: var(--haar); }
+.kontaktwege dd { margin: 0; }
+.kontaktwege-notiz { display: block; color: var(--text-leise); }
+.kontaktwege-link { display: block; margin-top: .5rem; }
+.gross-link { font-size: 1.5rem; font-weight: 650; }
+.anschrift-gross { font-size: var(--fs-gross); font-weight: 600; }
+
+/* ---------- Wichtige Infos ---------- */
+.sprungliste ul { display: flex; flex-wrap: wrap; gap: 0 1.5rem; margin: var(--a3) 0 0; padding: 0; list-style: none; }
+.sprungliste a { font-weight: 650; }
+/* Checkliste: Symbol, Begriff, Erklärung – ab 768 px in einer Zeile */
+.mitbringen { margin: var(--a3) 0 0; padding: 0; list-style: none; border-bottom: var(--haar); }
+.mitbringen li { display: grid; grid-template-columns: 3rem minmax(0, 1fr); gap: .25rem var(--a2); align-items: start; padding-block: var(--a3); border-top: var(--haar); }
+.mitbringen .symbol { grid-row: span 2; width: 3rem; height: 3rem; }
+.mitbringen strong { font: 600 var(--fs-h3)/1.3 var(--schrift-titel); color: var(--tinte); }
+.zweiteilig-symbol .symbol-bild { justify-self: start; }
+/* Großes Symbol im Seitenkopf nur in der Randspalte (ab 1100 px) – auf dem Telefon zählt die Nummer */
+.seitenkopf .symbol-bild { display: none; }
+
+/* ---------- Termin ---------- */
+.anruf-karte { max-width: 34rem; margin-top: var(--a4); padding: var(--a3); border: var(--haar); border-left: 6px solid var(--blau); border-radius: 0 var(--radius) var(--radius) 0; }
+.anruf-karte p { margin-bottom: .75rem; }
+.anruf-karte p:last-child { margin-bottom: 0; }
+.anruf-titel { font: 600 var(--fs-h3) var(--schrift-titel); color: var(--tinte); }
+.anruf-notiz { color: var(--text-leise); }
+.zeiten-gross { font-size: var(--fs-gross); }
+
+/* ---------- Rechtstexte ---------- */
+.rechtstext { padding-bottom: var(--a4); }
+.rechtstext section { margin-top: var(--a4); padding-top: var(--a4); border-top: var(--haar); }
+.rechtstext h2 { font-size: clamp(1.4375rem, 1.3rem + .6vw, 1.75rem); }
+.angaben { display: grid; margin-block: var(--a2); }
+.angaben > div { display: grid; gap: 0 var(--a3); align-items: baseline; padding-block: .625rem; border-bottom: var(--haar); }
+.angaben dt { font-weight: 650; }
+.angaben dd { margin: 0; }
+.stand { margin-top: var(--a5); color: var(--text-leise); }
+.inhaltsverzeichnis { margin-bottom: var(--a2); }
+.inhaltsverzeichnis ol { display: grid; margin: 0; padding: 0; list-style: none; }
+.inhaltsverzeichnis a { display: block; min-height: 2.75rem; padding-block: .375rem; border-bottom: var(--haar); text-decoration: none; }
+.inhaltsverzeichnis a:hover { text-decoration: underline; }
+
+/* ---------- Fuß: hell, mehrspaltig ---------- */
+.fuss { margin-top: var(--abschnitt); background: var(--lederhaut); }
+.fuss-kopf { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--a3); padding-block: var(--a5) var(--a4); border-bottom: 1px solid var(--iris); }
+.fuss-leitsatz { max-width: 22ch; margin: 0; font: 500 var(--fs-h2)/1.2 var(--schrift-titel); color: var(--tinte); }
+.fuss-spalten { display: grid; gap: var(--a4); padding-block: var(--a4) var(--a5); }
+.fuss-titel { display: flex; align-items: center; gap: .625rem; margin: 0 0 var(--a2); font: 700 var(--fs-klein) var(--schrift); color: var(--tinte); }
+.fuss-spalte p { margin-bottom: .5rem; }
+.fuss-marke { display: flex; align-items: center; gap: .75rem; }
+.fuss-marke-bild {
+  flex: none; width: 4rem; aspect-ratio: 600 / 358; background: var(--tinte);
+  -webkit-mask: url('../logo/logo-marke-mono.svg') center / contain no-repeat; mask: url('../logo/logo-marke-mono.svg') center / contain no-repeat;
+}
+.fuss-zeile { display: flex; align-items: center; gap: .5rem; }
+.fuss-zeile .symbol, .fuss-symbol { color: var(--tinte); }
+.fuss-telefon { font-size: var(--fs-gross); font-weight: 650; }
+.fuss-link, .fuss-recht a { font-weight: 600; }
+.fuss-symbol { width: 1.5rem; height: 1.5rem; margin-right: .5rem; vertical-align: -.35em; }
+.fuss-unten { border-top: 1px solid var(--iris); }
+.fuss-unten-innen { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0 var(--a4); padding-block: .5rem; }
+.fuss-recht ul { display: flex; flex-wrap: wrap; gap: 0 var(--a3); margin: 0; padding: 0; list-style: none; }
+.fuss-recht a[aria-current="page"] { color: var(--tinte); text-decoration-thickness: 3px; }
+.fuss-copy { margin: 0; color: var(--text-leise); }
+
+/* ========== Ab 360 px und 480 px: etwas mehr Platz im Kopf ========== */
+@media (min-width: 22.5em) {
+  .kopf-aktionen > * { padding-inline: .75rem; }
+  .kopf-telefon .symbol { display: block; }
+}
+@media (min-width: 30em) {
+  .marke-zusatz { display: inline; }
+  .marke-bild { width: 2.75rem; }
+}
+
+/* ========== Ab 600 px ========== */
+@media (min-width: 37.5em) {
+  .marke-ort { display: inline; }
+  .marke-bild { width: 3.5rem; }
+  .marke-name { font-size: var(--fs-gross); }
+  .bereiche, .bereich-sprung, .fuss-spalten, .inhaltsverzeichnis ol { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: var(--a3); }
+  .bereiche > li:last-child, .bereich-sprung > li:last-child { grid-column: 1 / -1; }
+  .notfall-kacheln { grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr)); }
+  .hinweis { grid-template-columns: auto minmax(0, 1fr); }
+  .hinweis .park-liste { grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr)); gap: var(--a2); }
+  .kontaktwege > div { grid-template-columns: 11rem minmax(0, 1fr); }
+  .angaben > div { grid-template-columns: 16rem minmax(0, 1fr); }
+  .zeiten-gross > div { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: var(--a2); }
+
+  /* Sprechzeiten wieder als echte Tabelle */
+  .zeiten-tabelle { display: table; }
+  .zeiten-tabelle thead { display: table-header-group; }
+  .zeiten-tabelle tbody { display: table-row-group; }
+  .zeiten-tabelle tr { display: table-row; }
+  .zeiten-tabelle th, .zeiten-tabelle td { display: table-cell; padding: .875rem 1rem .875rem 0; border-bottom: var(--haar); vertical-align: top; }
+  .zeiten-tabelle thead th { padding-block: 0 .625rem; border-bottom: 2px solid var(--tinte); }
+  .zeiten-tabelle thead th:first-child { position: static; width: auto; height: auto; overflow: visible; clip: auto; }
+  .zeiten-tabelle tbody th { width: 34%; }
+}
+
+/* ========== Ab 768 px ========== */
+@media (min-width: 48em) {
+  .zweiteilig { grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); align-items: start; gap: var(--a5); }
+  .leistungsliste { columns: 2; column-gap: var(--a5); }
+  .karte-flaeche { min-height: 26rem; }
+
+  /* Wochenleiste mit Stundenskala: Tag | Zeiten | Balken */
+  .woche-tag { grid-template-columns: 8.5rem 9.5rem minmax(0, 1fr); align-items: center; }
+  .woche-zeiten { flex-direction: column; }
+  .woche-balken { height: 1.25rem; margin-top: 0; }
+  .woche-skala { position: relative; display: grid; margin-left: 20rem; padding-bottom: .375rem; color: var(--text-leise); font-size: var(--fs-klein); font-variant-numeric: tabular-nums; }
+  .woche-skala span { transform: translateX(-50%); }
+  .woche-skala span:first-child { transform: none; }
+  .woche-skala .skala-ende { position: absolute; right: 0; transform: none; }
+  .woche-zusatz { margin-left: 9.5rem; }
+
+  /* Checkliste als Zeilen: Symbol | Begriff | Erklärung */
+  .mitbringen li { grid-template-columns: 3.5rem minmax(0, 15rem) minmax(0, 1fr); column-gap: var(--a3); }
+  .mitbringen .symbol { grid-row: auto; width: 3.5rem; height: 3.5rem; }
+  .mitbringen strong { padding-top: .5rem; }
+  .mitbringen span { padding-top: .6rem; max-width: 60ch; }
+}
+
+/* ========== Ab 900 px: volle Kopfzeile, keine Aktionsleiste ========== */
+@media (min-width: 56.25em) {
+  html { scroll-padding-bottom: 1rem; }
+  body { padding-bottom: 0; }
+  .kopf-innen { grid-template-areas: "marke aktionen" "nav nav"; padding-block: var(--a3) 0; }
+  .marke-bild { width: 4.75rem; }
+  .marke-name { font-size: 1.4375rem; }
+  .js .menue-knopf { display: none; }
+  .kopf-aktionen { position: static; grid-area: aktionen; align-items: center; gap: var(--a4); padding: 0; border: 0; background: none; box-shadow: none; }
+  .kopf-aktionen > * { flex: none; }
+  .kopf-telefon { justify-content: flex-start; gap: .75rem; padding: 0; border: 0; background: none; color: var(--text); }
+  .kopf-telefon:hover { background: none; color: var(--text); }
+  .kopf-telefon .symbol { width: 2.25rem; height: 2.25rem; color: var(--tinte); }
+  .kopf-telefon-lang { display: flex; flex-direction: column; line-height: 1.2; }
+  .kopf-telefon-label { color: var(--text-leise); font-size: var(--fs-klein); font-weight: 400; }
+  .kopf-telefon-nummer { color: var(--blau); font-size: 1.375rem; font-weight: 650; }
+  .kopf-telefon:hover .kopf-telefon-nummer { text-decoration: underline; }
+  .kopf-telefon-kurz { display: none; }
+
+  /* Textnavigation mit Balken unter der aktiven Seite */
+  .hauptnav { margin-top: var(--a3); border-top: var(--haar); }
+  .hauptnav-liste, .js .hauptnav-liste { display: flex; flex-wrap: wrap; gap: 0 clamp(1.5rem, 3vw, 3rem); margin: 0; }
+  .hauptnav a, .js .hauptnav a { min-height: 3.5rem; margin-bottom: -1px; padding: .75rem 0; border: 0; border-bottom: 5px solid transparent; border-radius: 0; }
+  .hauptnav a:hover { border-bottom-color: var(--iris); }
+  .hauptnav a[aria-current="page"] { border-bottom-color: var(--tinte); background: none; box-shadow: none; }
+
+  .einstieg { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); align-items: center; padding-top: var(--a6); }
+  .praxiskarte { justify-self: end; }
+  .wege { grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: var(--a4); }
+}
+
+/* ========== Ab 1100 px: 12-Spalten-Raster mit Randspalte ========== */
+@media (min-width: 68.75em) {
+  body { font-size: var(--fs-gross); }
+  .seitenkopf, .abschnitt, .bereich-nav, .rechtstext, .einstieg, .fuss-spalten { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--rinne); }
+  .rand { grid-column: 1 / span 3; padding-right: var(--a2); }
+  .haupt { grid-column: 4 / -1; }
+  .seitenkopf .rand, .abschnitt .rand { padding-top: .35rem; }
+  .rand-kleber { position: sticky; top: var(--a4); }
+  .seitenkopf { padding-block: var(--a6) var(--a5); }
+  .einstieg-text { grid-column: 1 / span 7; }
+  .praxiskarte { grid-column: 9 / -1; }
+
+  /* Leistungsbereiche: drei Kacheln oben, zwei breitere darunter */
+  .bereiche, .bereich-sprung { grid-template-columns: repeat(6, minmax(0, 1fr)); gap: var(--a2); }
+  .bereiche > li, .bereich-sprung > li { grid-column: span 2; }
+  .bereiche > li:nth-child(n+4), .bereich-sprung > li:nth-child(n+4) { grid-column: span 3; }
+  .bereich-sprung a { padding: var(--a3); }
+  .bereich .rand-kleber { display: block; }
+  .bereich .rand-kleber p { margin-bottom: var(--a2); }
+  .bereich-marke { flex-direction: column; align-items: flex-start; gap: var(--a2); }
+  .bereich-marke .bereich-nr { font-size: 3rem; }
+  .bereich-marke .symbol-bereich { width: 4.5rem; height: 4.5rem; }
+
+  .inhaltsverzeichnis ol { grid-template-columns: 1fr; }
+  .fuss-spalte { grid-column: span 3; }
+  .symbol-bild { width: 9rem; height: 9rem; }
+  .seitenkopf .symbol-bild { display: block; }
+}
+
+/* ---------- Weniger Bewegung ---------- */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition: none !important; }
+}
+
+/* ---------- Druck: Sprechzeiten und Anfahrt sauber auf Papier ---------- */
+@media print {
+  body { padding: 0; font-size: 12pt; }
+  .sprunglink, .menue-knopf, .kopf-aktionen, .hauptnav, .karte, .fuss-kopf .knopf, .knopf-reihe { display: none; }
+  .abschnitt { break-inside: avoid; padding-block: 1rem; }
+  a { color: inherit; }
+}
