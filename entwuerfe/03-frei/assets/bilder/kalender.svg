@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 300" width="360" height="300">
+  <!-- Kalenderblatt im Stil der Bildmarke: ein Tag trägt das Auge, darunter die Wasserlinien -->
+  <rect x="40" y="36" width="280" height="206" rx="18" fill="#ffffff" stroke="#14505e" stroke-width="5"/>
+  <path d="M40 92h280" stroke="#14505e" stroke-width="5"/>
+  <path d="M104 18v36M256 18v36" stroke="#14505e" stroke-width="7" stroke-linecap="round"/>
+  <g fill="#e6f0ef">
+    <rect x="66" y="112" width="42" height="30" rx="6"/><rect x="124" y="112" width="42" height="30" rx="6"/>
+    <rect x="182" y="112" width="42" height="30" rx="6"/><rect x="240" y="112" width="42" height="30" rx="6"/>
+    <rect x="66" y="156" width="42" height="30" rx="6"/><rect x="124" y="156" width="42" height="30" rx="6"/>
+    <rect x="240" y="156" width="42" height="30" rx="6"/>
+    <rect x="66" y="200" width="42" height="24" rx="6"/><rect x="124" y="200" width="42" height="24" rx="6"/>
+    <rect x="182" y="200" width="42" height="24" rx="6"/>
+  </g>
+  <rect x="176" y="150" width="54" height="42" rx="8" fill="#14505e"/>
+  <path d="M181 171c7-10 37-10 44 0-7 10-37 10-44 0z" fill="#f6f2ea"/>
+  <path d="M197.5 171a5.5 5.5 0 0 1 11 0z" fill="#14505e"/>
+  <path d="M60 266h240M104 284h152" stroke="#2f7f88" stroke-width="6" stroke-linecap="round"/>
+</svg>

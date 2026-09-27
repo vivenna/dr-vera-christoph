@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 76" width="120" height="76" role="img">
+  <title>Augenarztpraxis Dr. med. Vera Christoph – Bildmarke</title>
+  <!-- Mandelform = Auge; obere Halbscheibe = Iris mit Lichtpunkt; zwei kürzer werdende Linien = Spiegelung auf der Schlei und Zeilen einer Sehprobentafel -->
+  <path d="M7 38C29 8.5 91 8.5 113 38C91 67.5 29 67.5 7 38Z" fill="none" stroke="#14505e" stroke-width="7" stroke-linejoin="round"/>
+  <path d="M43.5 38A16.5 16.5 0 0 1 76.5 38Z M49.8 31a3.6 3.6 0 1 0 7.2 0a3.6 3.6 0 1 0 -7.2 0Z" fill="#14505e" fill-rule="evenodd"/>
+  <path d="M43.9 41.6H76.1A16.5 16.5 0 0 1 74.75 45.4H45.25A16.5 16.5 0 0 1 43.9 41.6ZM47.36 48.6H72.64A16.5 16.5 0 0 1 69.04 51.8H50.96A16.5 16.5 0 0 1 47.36 48.6Z" fill="#2f7f88"/>
+</svg>
