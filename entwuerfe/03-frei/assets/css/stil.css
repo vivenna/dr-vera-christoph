@@ -796,6 +796,7 @@ main:focus { outline: none; } /* Sprungziel, wird nur programmatisch fokussiert 
 .angaben div { padding-block: 0.6rem; border-bottom: 1px solid var(--linie); }
 .angaben dt { font-weight: 700; }
 .angaben dd { margin: 0; }
+.angaben-hinweis { display: block; margin-top: 0.25rem; font-size: var(--fs-min); font-weight: 400; color: var(--leise); }
 .inhaltsliste {
   padding: var(--a2) var(--a3);
   background: var(--schilf);

@@ -526,6 +526,7 @@ h1.abschnitt-titel { font-size: var(--fs-h1); }
 .angaben dt { font-weight: 700; }
 .angaben dd { margin: 0; }
 .angaben-schmal { max-width: none; font-size: inherit; }
+.angaben-hinweis { display: block; margin-top: 4px; font-size: var(--fs-klein); font-weight: 400; color: var(--text-leise); }
 
 /* ---------- Hinweis-Kasten und Parken ---------- */
 .hinweis-kasten {

@@ -100,7 +100,7 @@ a[href^="tel:"] { white-space: nowrap; }
 .knopf-gross .symbol { width: 1.75rem; height: 1.75rem; }
 .knopf-reihe { display: flex; flex-wrap: wrap; gap: .75rem; margin-block: var(--a3); }
 /* Links außerhalb von Fließtext: Klickfläche mindestens 44 px hoch */
-.mehr-link, .praxiskarte-telefon a, .download, .karte-extern, .karte-quelle a, .hoch-link, .notfall-nummer, .gross-link, .sprungliste a, .angaben a, .fuss-email a, .fuss-telefon, .fuss-link, .fuss-recht a { display: inline-flex; align-items: center; min-height: 2.75rem; }
+.mehr-link, .praxiskarte-telefon a, .download, .karte-extern, .karte-quelle a, .hoch-link, .notfall-nummer, .gross-link, .sprungliste a, .angaben a, .fuss-telefon, .fuss-link, .fuss-recht a { display: inline-flex; align-items: center; min-height: 2.75rem; }
 .mehr-link { gap: .5rem; font-weight: 650; }
 .mehr-link .symbol { width: 1.25rem; height: 1.25rem; transition: transform .15s; }
 .mehr-link:hover .symbol { transform: translateX(3px); }
@@ -393,6 +393,7 @@ a[href^="tel:"] { white-space: nowrap; }
 .angaben > div { display: grid; gap: 0 var(--a3); align-items: baseline; padding-block: .625rem; border-bottom: var(--haar); }
 .angaben dt { font-weight: 650; }
 .angaben dd { margin: 0; }
+.angaben-hinweis { display: block; margin-top: .25rem; font-size: var(--fs-klein); font-weight: 400; color: var(--text-leise); }
 .stand { margin-top: var(--a5); color: var(--text-leise); }
 .inhaltsverzeichnis { margin-bottom: var(--a2); }
 .inhaltsverzeichnis ol { display: grid; margin: 0; padding: 0; list-style: none; }
