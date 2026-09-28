@@ -34,14 +34,11 @@ export default function inhalt(ctx) {
     <h2 id="zeiten-titel" class="abschnitt-titel">Unsere Sprechzeiten</h2>
     ${zeitenTabelle(ctx)}
     <p class="zeiten-zusatz">${esc(praxis.sprechzeitenZusatz)}</p>
-    <p class="zeiten-hinweis">${ctx.termin.extern
-      ? `Einen Termin buchen Sie online oder vereinbaren ihn telefonisch unter ${ctx.telefonLink()}.`
-      : `Einen Termin vereinbaren Sie am einfachsten telefonisch unter ${ctx.telefonLink()}.`}</p>
   </section>
 
   <section class="abschnitt anfahrt-kurz" aria-labelledby="anfahrt-titel">
     <h2 id="anfahrt-titel" class="abschnitt-titel">Anfahrt und Parken</h2>
-    <p class="abschnitt-lead">Das Parkhaus in der Innenstadt ist seit Januar 2026 gesperrt. Damit Sie trotzdem entspannt ankommen, haben wir die nächstgelegenen Parkplätze und Busverbindungen rund um die ${esc(praxis.adresse.strasse)} zusammengestellt.</p>
+    <p class="anfahrt-hinweis">Hinweis: Das Parkhaus in der Innenstadt ist derzeit gesperrt. Hier finden Sie Alternativen rund um die ${esc(praxis.adresse.strasse)}.</p>
     <ul class="kacheln">
       <li class="kachel">
         ${symbol('parken', 56)}

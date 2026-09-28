@@ -150,11 +150,10 @@ Die Platzhalter verschwinden automatisch, sobald der Wert in
 `praxis` (`email`, `fax`, `sprachen`, `barrierefreiheit`), die Angaben für Impressum und
 Datenschutz unter `praxis.rechtliches` (`approbation`, `kammer`, `aufsicht`, `berufsordnung`,
 `ustid`, `haftpflicht`, `datenschutzbeauftragter`, `hosting`, `speicherdauerLogs`,
-`terminAnbieter`). Der Foto-Platzhalter wird durch ein echtes Bild ersetzt.
+`terminAnbieter`).
 
 | Platzhalter | Seite(n) | Benötigte Angabe |
 |---|---|---|
-| `[Foto folgt: Porträt von Dr. Christoph in der Praxis]` | `index.html` | Porträtfoto der Ärztin (Querformat oder 4 : 5), mit Nutzungsrecht |
 | `[E-Mail-Adresse folgt]` | `kontakt.html`, `impressum.html`, `datenschutz.html` | E-Mail-Adresse der Praxis (in `praxis.mjs` → `email`) |
 | `[Faxnummer folgt, falls vorhanden]` | `kontakt.html`, `impressum.html` | Faxnummer oder die Aussage, dass es keine gibt (`fax`) |
 | `[Gesprochene Sprachen folgen]` | `kontakt.html` | Sprachen in der Praxis |

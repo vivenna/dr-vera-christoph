@@ -555,24 +555,10 @@ main:focus { outline: none; } /* Sprungziel, wird nur programmatisch fokussiert 
 .kachel--flach { background: var(--weiss); }
 .abschnitt--schilf .kachel { border-color: var(--schilf-linie); }
 
-/* Foto-Platzhalter */
-.fotoplatz { margin: 0; }
-.fotoplatz__flaeche {
-  display: grid;
-  place-items: center;
-  gap: var(--a2);
-  aspect-ratio: 4 / 5;
-  max-height: 30rem;
-  padding: var(--a3);
-  border: 2px dashed var(--wasser);
-  border-radius: var(--radius-gross);
-  background: var(--weiss);
-  color: var(--wasser);
-  text-align: center;
-}
-.fotoplatz__flaeche .icon--riesig { width: 5rem; height: 5rem; align-self: end; }
-.fotoplatz__flaeche .platzhalter { align-self: start; }
-.unterschrift { display: flex; flex-direction: column; margin-top: var(--a3); padding-top: var(--a2); border-top: 1px solid var(--schilf-linie); }
+.text--willkommen { max-width: 52rem; margin-inline: auto; text-align: center; }
+.text--willkommen .dachzeile { justify-content: center; }
+.text--willkommen p:not(.dachzeile):not(.unterschrift) { max-width: 62ch; margin-inline: auto; }
+.unterschrift { display: flex; flex-direction: column; align-items: center; margin-top: var(--a3); padding-top: var(--a2); border-top: 1px solid var(--schilf-linie); }
 .unterschrift__name { font-family: var(--schrift-titel); font-size: var(--fs-gross); font-weight: 600; color: var(--tief); }
 
 /* Platzhalter für fehlende Angaben – bewusst auffällig */

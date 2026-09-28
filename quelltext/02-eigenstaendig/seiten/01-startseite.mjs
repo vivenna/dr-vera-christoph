@@ -3,7 +3,7 @@
 
 import { praxis } from '../../gemeinsam/praxis.mjs';
 import {
-  symbol, terminKnopf, wochenleiste, parkhinweisKurz, fotoPlatzhalter, bereichSymbol, abschnitt, trennen,
+  symbol, terminKnopf, wochenleiste, parkhinweisKurz, bereichSymbol, abschnitt, trennen,
 } from '../bausteine.mjs';
 
 export const seite = {
@@ -69,8 +69,7 @@ ${abschnitt({
   stichwort: 'Die Praxis',
   titel: `Willkommen bei ${esc(p.aerztin)}`,
   klasse: 'abschnitt-praxis',
-  inhalt: `<div class="zweiteilig">
-<div class="text">
+  inhalt: `<div class="text">
 <p>${esc(p.aerztin)} ist ${esc(p.fachrichtung)} und betreut in ihrer Praxis in der ${esc(a.strasse.replace(/\s+\d.*$/, ''))} Patientinnen und Patienten aus ${esc(p.ort)} und Umgebung.</p>
 <p>Ob Vorsorge, neue Brillenwerte, eine Verlaufskontrolle beim grünen Star oder plötzliche Beschwerden: Wir untersuchen sorgfältig, nehmen Ihre Fragen ernst und sagen Ihnen offen, was wir sehen.</p>
 <ul class="haken-liste">
@@ -78,8 +77,7 @@ ${abschnitt({
 <li>${symbol('haken')}<span>Verständliche Erklärungen zu Befunden und Behandlung</span></li>
 <li>${symbol('haken')}<span>Mitten in der Altstadt, Bushaltestelle ${esc(ctx.anfahrt.haltestelle)} in der Innenstadt</span></li>
 </ul>
-</div>
-${fotoPlatzhalter(ctx, `Porträt von Dr. Christoph in der Praxis`)}
+<p class="unterschrift">${symbol('auge')}<span class="unterschrift-text"><span class="unterschrift-name">${esc(p.aerztin)}</span><span>${esc(p.fachrichtung)}</span></span></p>
 </div>`,
 })}
 

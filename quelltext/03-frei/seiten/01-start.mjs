@@ -57,11 +57,8 @@ export default function inhalt(ctx) {
 </section>
 
 <section class="abschnitt abschnitt--schilf" aria-labelledby="willkommen-titel">
-  <div class="rahmen zweispaltig zweispaltig--bild">
-    <figure class="fotoplatz">
-      <div class="fotoplatz__flaeche">${icon('auge', 'icon icon--riesig')}<span class="platzhalter">[Foto folgt: Porträt von Dr. Christoph in der Praxis]</span></div>
-    </figure>
-    <div class="text">
+  <div class="rahmen">
+    <div class="text text--willkommen">
       ${dachzeile('Über die Praxis')}
       <h2 id="willkommen-titel">Willkommen in unserer Praxis</h2>
       <p>Gutes Sehen begleitet uns durch jeden Tag – beim Lesen, beim Autofahren, beim Blick über die Schlei. Wenn sich daran etwas verändert, möchten Sie wissen, woran Sie sind. Darum geht es uns: um sorgfältige Untersuchungen, verständliche Erklärungen und eine Behandlung, die zu Ihnen passt.</p>

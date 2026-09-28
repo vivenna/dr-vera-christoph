@@ -271,11 +271,6 @@ export function mitFachbegriffen(ctx, text) {
   return html;
 }
 
-// ── Platzhalter für Fotos ──────────────────────────────────────────────────
-export function fotoPlatzhalter(ctx, beschreibung, klasse = '') {
-  return `<figure class="foto-platzhalter${klasse ? ' ' + klasse : ''}">${symbol('auge')}<figcaption>${ctx.platzhalter(`[Foto folgt: ${beschreibung}]`)}</figcaption></figure>`;
-}
-
 // ── Trennstellen für Überschriften ─────────────────────────────────────────
 // Überschriften werden nicht automatisch getrennt (CSS: hyphens: manual), damit
 // keine Brüche wie „Schles-wiger“ entstehen. Damit lange Wörter auf schmalen

@@ -162,8 +162,6 @@ echte Bilder ersetzt.
 | [Faxnummer folgt, falls vorhanden] | Kontakt, Impressum | Faxnummer, falls es eine gibt (`praxis.fax`) |
 | [Gesprochene Sprachen folgen] | Kontakt | Sprachen in der Praxis (`praxis.sprachen`) |
 | [Angaben zur Barrierefreiheit der Praxisräume folgen] | Kontakt („Zugang zur Praxis“) | Stufen, Aufzug, Stockwerk, Parkplatz am Haus (`praxis.barrierefreiheit`) |
-| [Foto folgt: Porträt von Dr. Christoph in der Praxis] | Startseite | Porträtfoto der Ärztin (Nutzungsrecht klären) |
-| [Foto folgt: Hauseingang der Praxis in der Plessenstraße] | Kontakt | Foto des Hauseingangs |
 | [Staat der Approbation und Verleihung der Berufsbezeichnung folgt] | Impressum | Staat, in dem Approbation und Facharztbezeichnung erteilt wurden |
 | [Zuständige Ärztekammer folgt] | Impressum | Zuständige Ärztekammer mit Anschrift |
 | [Zuständige Aufsichtsbehörde folgt] | Impressum | Aufsichtsbehörde (z. B. Kassenärztliche Vereinigung) |

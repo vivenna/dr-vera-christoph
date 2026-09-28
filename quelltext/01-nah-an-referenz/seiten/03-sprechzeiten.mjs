@@ -21,9 +21,6 @@ export default function inhalt(ctx) {
     <h1 id="zeiten-titel" class="abschnitt-titel">Unsere Sprechzeiten</h1>
     ${zeitenTabelle(ctx)}
     <p class="zeiten-zusatz">${esc(praxis.sprechzeitenZusatz)}</p>
-    <p class="zeiten-hinweis">${ctx.termin.extern
-      ? 'Termine buchen Sie online oder vereinbaren sie telefonisch, am besten während der Sprechzeiten.'
-      : 'Termine vereinbaren Sie bitte telefonisch, am besten während der Sprechzeiten.'}</p>
   </section>
 
   <section class="abschnitt" aria-labelledby="erreichbar-titel">

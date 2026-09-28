@@ -21,10 +21,10 @@
 :root {
   /* Farben aus dem Logo – Kontraste siehe README */
   --blau: #275895;        /* Schriftblau: Struktur, Weiß darauf 7,20:1 */
-  --tinte: #615e79;       /* Reaktion: Hover und aktive Seite, Weiß darauf 6,20:1 */
-  --wimpern: #89859f;     /* nur Grafik */
-  --irisring: #a5a3bb;    /* nur Grafik */
-  --iris: #c2c3d6;        /* Kartenrand, Dekor */
+  --tinte: #4a5599;       /* Reaktion: Hover und aktive Seite, Weiß darauf 6,88:1 */
+  --wimpern: #6d7ab8;     /* nur Grafik */
+  --irisring: #8b98cc;    /* nur Grafik */
+  --iris: #aab8dd;        /* Kartenrand, Dekor */
   --lederhaut: #eef0f6;   /* Flächen der Listenkarten */
   --text: #1c2130;        /* 16,04:1 auf Weiß */
   --text-leise: #3f4452;  /* 9,72:1 auf Weiß */
@@ -62,7 +62,13 @@
 html {
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
-  scroll-padding-top: 6rem;
+  scroll-padding-top: 1.5rem;
+}
+
+/* Nur wenn der Kopf sticky ist (Telefon, siehe Media Query weiter unten)
+   braucht der Sprung zusätzlichen Abstand, damit er nicht darunter verschwindet */
+@media (min-height: 520px) and (max-width: 767.98px) {
+  html { scroll-padding-top: 6.5rem; }
 }
 
 body {
@@ -408,6 +414,14 @@ h1.abschnitt-titel { font-size: var(--fs-h1); }
   color: var(--text-leise);
   font-size: var(--fs-gross);
   line-height: 1.55;
+  text-align: center;
+}
+.anfahrt-hinweis {
+  max-width: 44ch;
+  margin: -1rem auto clamp(1.5rem, 1rem + 1.5vw, 2.5rem);
+  color: var(--text-leise);
+  font-size: var(--fs-klein);
+  line-height: 1.5;
   text-align: center;
 }
 .abschnitt-mehr {
@@ -799,7 +813,7 @@ h1.abschnitt-titel { font-size: var(--fs-h1); }
 .fuss {
   position: relative;
   overflow: hidden;
-  padding: 72px var(--rand) 0;
+  padding: 72px var(--rand) 40px;
   background: var(--blau);
   color: #fff;
 }
@@ -1062,7 +1076,7 @@ h1.abschnitt-titel { font-size: var(--fs-h1); }
   .kacheln { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .kachel:last-child { grid-column: auto; }
 
-  .fuss { padding-top: 100px; }
+  .fuss { padding-top: 100px; padding-bottom: 56px; }
   /* Wasserzeichen oben links angeschnitten; hier überdeckt es keinen Text,
      deshalb etwas kräftiger als auf dem Telefon */
   .fuss-marke {

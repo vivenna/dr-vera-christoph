@@ -3,7 +3,7 @@
 
 import { praxis } from '../../gemeinsam/praxis.mjs';
 import {
-  symbol, seitenkopf, abschnitt, terminKnopf, karte, fotoPlatzhalter, parkListe, parkName,
+  symbol, seitenkopf, abschnitt, terminKnopf, karte, parkListe, parkName,
   faltblattLink, faltblattQuelle, externerLink,
 } from '../bausteine.mjs';
 
@@ -49,13 +49,10 @@ ${abschnitt({
   id: 'anschrift',
   stichwort: 'Anschrift',
   titel: 'Hier finden Sie uns',
-  inhalt: `<div class="zweiteilig">
-<div class="text">
+  inhalt: `<div class="text">
 <address class="anschrift-gross">${esc(p.praxisname)}<br>${esc(a.strasse)}<br>${esc(a.plz)} ${esc(a.stadt)}</address>
 <p>${esc(ctx.anfahrt.lage)}</p>
 <p><strong>Zugang zur Praxis:</strong> ${ctx.angabe('barrierefreiheit')}</p>
-</div>
-${fotoPlatzhalter(ctx, 'Hauseingang der Praxis in der Plessenstraße')}
 </div>
 ${karte(ctx)}`,
 })}
