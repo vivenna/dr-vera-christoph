@@ -44,16 +44,24 @@ dann bauen. Alle Termin-Schaltflächen aller Entwürfe zeigen danach direkt dort
 und erhalten automatisch `target="_blank"` und `rel="noopener noreferrer"`.
 Das funktioniert ohne JavaScript, weil die Adresse beim Bauen fest ins HTML
 geschrieben wird. Die Hinweistexte („telefonisch“ bzw. „online oder telefonisch“)
-stellen sich mit um. Vorher `praxis.rechtliches.terminAnbieter` eintragen und den
-Abschnitt zur Terminbuchung in der Datenschutzerklärung mit den Angaben des
-Anbieters füllen – dort steht nach dem Umstellen ein Platzhalter.
+stellen sich mit um. Die schlichte Zwischenseite `terminbuchung.html`
+(„Terminbuchung wird noch eingerichtet“, siehe `seiten/*-terminbuchung.mjs`)
+wird dabei nicht mehr verlinkt, bleibt aber erreichbar. Vorher
+`praxis.rechtliches.terminAnbieter` eintragen: Erst dann erscheint in der
+Datenschutzerklärung automatisch der Abschnitt zur Terminbuchung, mit einem
+Platzhalter für die Angaben des Anbieters (siehe die `ctx.termin.extern`-Fallunterscheidung
+in den `seiten/*-datenschutz.mjs`).
 
 **E-Mail-Adresse, Fax oder andere fehlende Angaben liegen vor:** In
 `gemeinsam/praxis.mjs` den Wert statt `null` eintragen, dann bauen. Kontaktangaben
 stehen direkt unter `praxis` (`email`, `fax`, `sprachen`, `barrierefreiheit`), die
 Angaben für Impressum und Datenschutzerklärung unter `praxis.rechtliches`
 (`kammer`, `aufsicht`, `hosting` …). Die Seiten holen sie mit `ctx.angabe('…')`, die
-Platzhalter verschwinden damit auf allen Seiten.
+Platzhalter füllen sich damit überall automatisch. E-Mail und Fax erscheinen
+bewusst nur im Impressum (dort gesetzlich vorgeschrieben) und nicht als
+allgemeine Kontaktoption; neben der E-Mail-Adresse steht dort zusätzlich der
+Hinweis `gemeinsam/praxis.mjs:emailHinweis`, dass sie für medizinische Anfragen
+von Patientinnen und Patienten nicht gedacht ist.
 
 **Sprechzeiten ändern sich:** In `gemeinsam/praxis.mjs` unter `sprechzeiten`
 anpassen, dann bauen. Tabelle, Fußzeile und strukturierte Daten (JSON-LD)

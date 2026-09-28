@@ -22,7 +22,7 @@ export default function inhalt(ctx) {
     ['anbieter', 'Angaben gemäß § 5 DDG', `<p>${esc(p.aerztin)}<br>${esc(p.praxisname)}<br>${esc(a.strasse)}<br>${esc(a.plz)} ${esc(a.stadt)}</p>
 <dl class="angaben">
 <div><dt>Telefon</dt><dd><a href="${p.telefon.href}">${esc(p.telefon.anzeige)}</a></dd></div>
-<div><dt>E-Mail</dt><dd>${ctx.email()}</dd></div>
+<div><dt>E-Mail</dt><dd>${ctx.email()}<span class="angaben-hinweis">${esc(ctx.emailHinweis)}</span></dd></div>
 <div><dt>Fax</dt><dd>${ctx.fax()}</dd></div>
 </dl>`],
     ['beruf', 'Berufsrechtliche Angaben', `<dl class="angaben">

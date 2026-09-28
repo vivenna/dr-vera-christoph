@@ -1,7 +1,7 @@
 // Kontakt – wie bei der Referenz zwei ruhige Angaben-Listen (Kontaktwege und
 // Lage), ergänzt um den ausführlichen Parkhinweis mit dem Faltblatt der Stadt.
-// Unbekannte Angaben (E-Mail, Fax, Sprachen, Barrierefreiheit) erscheinen als
-// sichtbare Platzhalter und füllen sich automatisch aus gemeinsam/praxis.mjs.
+// E-Mail, Fax und Sprachen stehen nur im Impressum (siehe README); die
+// unbekannte Barrierefreiheit-Angabe erscheint hier als sichtbarer Platzhalter.
 
 import { terminLink, fremdLink, faltblattLink, symbol } from '../bausteine.mjs';
 
@@ -31,10 +31,7 @@ export default function inhalt(ctx) {
     <h1 id="kontakt-titel" class="abschnitt-titel">Kontakt</h1>
     <dl class="angaben">
       <div><dt>Telefon</dt><dd>${ctx.telefonLink('link-gross')}</dd></div>
-      <div><dt>Telefax</dt><dd>${ctx.fax()}</dd></div>
-      <div><dt>E-Mail</dt><dd>${ctx.email()}</dd></div>
       <div><dt>Termin</dt><dd>${terminLink(ctx, 'link-gross')}</dd></div>
-      <div><dt>Sprachen</dt><dd>${ctx.angabe('sprachen')}</dd></div>
       <div><dt>Barrierefreiheit</dt><dd>${ctx.angabe('barrierefreiheit')}</dd></div>
     </dl>
   </section>

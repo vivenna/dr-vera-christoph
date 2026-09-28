@@ -30,7 +30,7 @@ export default function inhalt(ctx) {
 
   const terminNotiz = ctx.termin.extern
     ? 'Termine können Sie online buchen oder telefonisch vereinbaren.'
-    : 'Die Online-Terminbuchung ist in Vorbereitung. Bis dahin vereinbaren Sie Ihren Termin bitte telefonisch.';
+    : 'Ihren Termin vereinbaren Sie bitte telefonisch.';
 
   return `
 <div class="einstieg raster">

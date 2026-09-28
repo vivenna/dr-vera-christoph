@@ -553,3 +553,14 @@ a[href^="tel:"] { white-space: nowrap; }
   .abschnitt { break-inside: avoid; padding-block: 1rem; }
   a { color: inherit; }
 }
+
+/* ---------- Schlichte Zwischenseite (z. B. Terminbuchung) ---------- */
+.minimalseite-flaeche {
+  display: grid;
+  place-items: center;
+  gap: var(--a3);
+  min-height: 100vh;
+  padding: var(--rand-seite);
+  text-align: center;
+}
+.minimalseite-flaeche h1 { font-size: var(--fs-h2); margin: 0; }

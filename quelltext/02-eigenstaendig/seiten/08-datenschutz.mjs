@@ -23,33 +23,32 @@ export default function inhalt(ctx) {
 <p>${esc(p.aerztin)}<br>${esc(p.praxisname)}<br>${esc(a.strasse)}<br>${esc(a.plz)} ${esc(a.stadt)}</p>
 <dl class="angaben">
 <div><dt>Telefon</dt><dd><a href="${p.telefon.href}">${esc(p.telefon.anzeige)}</a></dd></div>
-<div><dt>E-Mail</dt><dd>${ctx.email()}</dd></div>
 </dl>`],
     ['beauftragte', 'Datenschutzbeauftragte Person', `<p>${ph('datenschutzbeauftragter')}</p>`],
     ['ueberblick', 'Das Wichtigste in Kürze', `<ul class="punkt-liste">
 <li>Diese Website setzt <strong>keine Cookies</strong> und speichert nichts auf Ihrem Gerät.</li>
 <li>Es gibt <strong>keine Analyse- oder Trackingdienste</strong> und keine eingebundenen Inhalte sozialer Netzwerke.</li>
 <li>Schriften und Grafiken liegen auf demselben Server wie diese Website. Beim Aufruf der Seiten wird <strong>keine Verbindung zu fremden Servern</strong> aufgebaut.</li>
-<li>Die Karte von OpenStreetMap wird <strong>erst nach Ihrem Klick</strong> geladen.</li>
+<li>Die Karte von Google Maps wird <strong>erst nach Ihrem Klick</strong> geladen.</li>
 </ul>`],
     ['hosting', 'Hosting und Server-Logdateien', `<p>Diese Website wird betrieben bei: ${ph('hosting')}. Der Anbieter verarbeitet die Daten in unserem Auftrag (Auftragsverarbeitung nach Art. 28 DSGVO).</p>
 <p>Beim Aufruf einer Seite verarbeitet der Webserver technisch notwendige Angaben, die Ihr Browser automatisch übermittelt: IP-Adresse, Datum und Uhrzeit des Abrufs, die aufgerufene Adresse, die übertragene Datenmenge, die zuvor besuchte Seite sowie Angaben zu Browser und Betriebssystem. Diese Daten dienen ausschließlich dazu, die Website sicher und zuverlässig auszuliefern und Störungen zu erkennen. Sie werden nicht mit anderen Daten zusammengeführt.</p>
 <p>Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO. Unser berechtigtes Interesse liegt im sicheren und stabilen Betrieb der Website. Die Logdateien werden gelöscht, sobald sie für diesen Zweck nicht mehr erforderlich sind: ${ph('speicherdauerLogs')}</p>`],
     ['cookies', 'Keine Cookies, keine Analyse', `<p>Wir setzen keine Cookies und nutzen weder den lokalen Speicher Ihres Browsers noch vergleichbare Techniken. Wir verwenden keine Dienste zur Reichweitenmessung, keine Werbung und kein Tracking. Deshalb erscheint auch kein Einwilligungsbanner.</p>`],
     ['schriften', 'Schriften', `<p>Die Schriften Source Sans 3 und Source Serif 4 liegen auf demselben Server wie diese Website. Beim Laden der Seiten wird keine Verbindung zu Google oder anderen Schriftanbietern hergestellt.</p>`],
-    ['karte', 'Karte von OpenStreetMap', `<p>Auf der Kontaktseite können Sie eine Karte von OpenStreetMap anzeigen lassen. Sie wird erst geladen, wenn Sie auf „Karte laden“ klicken. Erst dann stellt Ihr Browser eine Verbindung zu Servern der OpenStreetMap Foundation im Vereinigten Königreich her und überträgt dabei Ihre IP-Adresse und technische Angaben zu Ihrem Browser.</p>
-<p>Für das Vereinigte Königreich besteht ein Angemessenheitsbeschluss der Europäischen Kommission; das Datenschutzniveau gilt damit als gleichwertig mit dem der Europäischen Union.</p>
-<p>Rechtsgrundlage ist Ihre Einwilligung durch den Klick (Art. 6 Abs. 1 lit. a DSGVO, § 25 Abs. 1 TDDDG). Sie können sie jederzeit für die Zukunft widerrufen, indem Sie die Seite neu laden – die Karte wird dann nicht mehr angezeigt. Weitere Informationen: ${externerLink(ctx, 'https://osmfoundation.org/wiki/Privacy_Policy', 'Datenschutzerklärung der OpenStreetMap Foundation')}.</p>
-<p>Ohne Einbettung können Sie die Karte über den Link „Karte bei OpenStreetMap öffnen“ direkt auf openstreetmap.org ansehen. Dort gelten die Datenschutzbestimmungen von OpenStreetMap.</p>`],
+    ['karte', 'Karte von Google Maps', `<p>Auf der Kontaktseite können Sie eine Karte von Google Maps anzeigen lassen, einem Angebot der Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Irland. Sie wird erst geladen, wenn Sie auf „Karte laden“ klicken. Erst dann stellt Ihr Browser eine Verbindung zu Servern von Google her und überträgt dabei Ihre IP-Adresse und technische Angaben zu Ihrem Browser; diese Verarbeitung kann auch auf Servern von Google LLC in den USA stattfinden.</p>
+<p>Für Übermittlungen in die USA hat sich Google dem EU-US Data Privacy Framework unterworfen; ergänzend werden Standardvertragsklauseln eingesetzt.</p>
+<p>Rechtsgrundlage ist Ihre Einwilligung durch den Klick (Art. 6 Abs. 1 lit. a DSGVO, § 25 Abs. 1 TDDDG). Sie können sie jederzeit für die Zukunft widerrufen, indem Sie die Seite neu laden – die Karte wird dann nicht mehr angezeigt. Weitere Informationen: ${externerLink(ctx, 'https://policies.google.com/privacy', 'Datenschutzerklärung von Google')}.</p>
+<p>Ohne Einbettung können Sie die Karte über den Link „Karte bei Google Maps öffnen“ direkt auf google.com/maps ansehen. Dort gelten die Datenschutzbestimmungen von Google.</p>`],
     ['kontakt', 'Kontakt per Telefon oder E-Mail', `<p>Wenn Sie uns anrufen oder eine E-Mail schreiben, verarbeiten wir Ihre Angaben – etwa Name, Telefonnummer, Ihr Anliegen und gegebenenfalls Angaben zu Ihrer Gesundheit –, um Ihre Anfrage zu beantworten und Termine zu vergeben.</p>
 <p>Rechtsgrundlage ist Art. 6 Abs. 1 lit. b DSGVO. Soweit Gesundheitsdaten betroffen sind, verarbeiten wir sie auf Grundlage von Art. 9 Abs. 2 lit. h DSGVO. Alle Angaben unterliegen der ärztlichen Schweigepflicht.</p>
 <p>Wir speichern Ihre Angaben nur so lange, wie es für Ihr Anliegen nötig ist. Werden sie Teil Ihrer Behandlungsdokumentation, gelten die gesetzlichen Aufbewahrungsfristen (in der Regel zehn Jahre nach Abschluss der Behandlung, § 630f Abs. 3 BGB).</p>
 <p>Bitte beachten Sie: Unverschlüsselte E-Mails können auf dem Übertragungsweg von Dritten gelesen werden. Für vertrauliche Angaben ist das Telefon besser geeignet.</p>`],
-    ['terminbuchung', ctx.termin.extern ? 'Online-Terminbuchung' : 'Künftige Online-Terminbuchung', ctx.termin.extern
-      ? `<p>Termine können Sie online buchen. Die Buchung wird von ${ph('terminAnbieter')} betrieben und läuft auf einer eigenen Internetadresse. ${ctx.platzhalter(ctx.PLATZHALTER.terminDatenschutz)}</p>`
-      : `<p>Wir bereiten eine Online-Terminbuchung vor. Sie wird von ${ph('terminAnbieter')} betrieben und läuft auf einer eigenen Internetadresse. Bevor sie freigeschaltet wird, informieren wir an dieser Stelle über Art, Umfang und Rechtsgrundlage der Verarbeitung.</p>
-<p>Bis dahin führt die Schaltfläche „Termin vereinbaren“ auf eine Seite dieser Website und überträgt keine Daten an Dritte.</p>`],
-    ['links', 'Links zu anderen Websites', `<p>Diese Website enthält Links zu Angeboten anderer Anbieter, etwa der Stadt Schleswig oder von OpenStreetMap. Erst wenn Sie einen solchen Link anklicken, verlassen Sie unsere Website; für die Datenverarbeitung dort ist der jeweilige Anbieter verantwortlich.</p>`],
+    // Solange die Terminbuchung lokal bleibt (ctx.termin.extern === false), findet
+    // dabei keine Verarbeitung statt, die hier zu nennen wäre – der Abschnitt
+    // erscheint erst, sobald in gemeinsam/website.mjs eine externe `terminUrl` steht.
+    ...(ctx.termin.extern ? [['terminbuchung', 'Online-Terminbuchung', `<p>Termine können Sie online buchen. Die Buchung wird von ${ph('terminAnbieter')} betrieben und läuft auf einer eigenen Internetadresse. ${ctx.platzhalter(ctx.PLATZHALTER.terminDatenschutz)}</p>`]] : []),
+    ['links', 'Links zu anderen Websites', `<p>Diese Website enthält Links zu Angeboten anderer Anbieter, etwa der Stadt Schleswig oder von Google Maps. Erst wenn Sie einen solchen Link anklicken, verlassen Sie unsere Website; für die Datenverarbeitung dort ist der jeweilige Anbieter verantwortlich.</p>`],
     ['rechte', 'Ihre Rechte', `<p>Sie haben gegenüber uns jederzeit das Recht auf</p>
 <ul class="punkt-liste">
 <li>Auskunft über Ihre gespeicherten Daten (Art. 15 DSGVO),</li>

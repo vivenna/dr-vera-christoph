@@ -18,7 +18,7 @@ export const seite = {
 export default function inhalt(ctx) {
   const termin = ctx.termin.extern
     ? `Ihren Termin können Sie online buchen oder telefonisch unter ${ctx.telefonLink()} vereinbaren.`
-    : `Ihren Termin vereinbaren Sie bitte telefonisch unter ${ctx.telefonLink()}. Eine Online-Terminbuchung ist in Vorbereitung.`;
+    : `Ihren Termin vereinbaren Sie bitte telefonisch unter ${ctx.telefonLink()}.`;
 
   const zeilen = [
     ['karte', 'Versichertenkarte und Überweisung:', 'Bitte bringen Sie Ihre Gesundheitskarte (Versichertenkarte) mit und, falls vorhanden, Ihre Überweisung.'],

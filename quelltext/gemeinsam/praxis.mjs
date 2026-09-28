@@ -89,16 +89,20 @@ export const PLATZHALTER = {
   praxisfoto: '[Foto folgt]',
 };
 
-// ── Karte (OpenStreetMap) ──────────────────────────────────────────────────
-const { lat, lon } = praxis.geo;
-const d = { lat: 0.0035, lon: 0.0075 };
+// Hinweis neben der E-Mail-Adresse im Impressum: dort muss sie stehen (§ 5 DDG),
+// überall sonst zeigen wir sie gar nicht erst an (siehe README).
+export const emailHinweis = 'Hinweis: keine Kontaktoption für medizinische Anfragen von Patientinnen und Patienten – bitte rufen Sie uns dafür an.';
+
+// ── Karte (Google Maps) ────────────────────────────────────────────────────
+// Einbettung von Google Maps (My Business-Eintrag „Dr.med. Vera Christoph“),
+// von der Ärztin selbst aus Google Maps exportiert (Abruf 28.09.2026).
 export const karte = {
-  // Direktlink – öffnet openstreetmap.org in einem neuen Tab, keine Einbettung.
-  link: `https://www.openstreetmap.org/?mlat=${lat}&mlon=${lon}#map=18/${lat}/${lon}`,
+  // Direktlink – öffnet die Google-Maps-Suche in einem neuen Tab, keine Einbettung.
+  link: 'https://www.google.com/maps/search/?api=1&query=Dr.+med.+Vera+Christoph%2C+Plessenstra%C3%9Fe+13%2C+24837+Schleswig',
   // Einbettung – nur nach Klick laden (Zwei-Klick-Lösung), siehe Entwurfs-READMEs.
-  einbettung: `https://www.openstreetmap.org/export/embed.html?bbox=${(lon - d.lon).toFixed(5)}%2C${(lat - d.lat).toFixed(5)}%2C${(lon + d.lon).toFixed(5)}%2C${(lat + d.lat).toFixed(5)}&layer=mapnik&marker=${lat}%2C${lon}`,
-  quellenhinweis: '© OpenStreetMap-Mitwirkende',
-  lizenzLink: 'https://www.openstreetmap.org/copyright',
+  einbettung: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d578.9988966723266!2d9.566448253242996!3d54.51593921507757!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x43df531f0cef19f5%3A0x24cc13b766a8d373!2sDr.med.%20Vera%20Christoph!5e0!3m2!1sde!2sde!4v1790570275561!5m2!1sde!2sde',
+  quellenhinweis: '© Google Maps',
+  lizenzLink: 'https://www.google.com/intl/de/help/terms_maps/',
 };
 
 // ── Parken & Anfahrt (Faltblatt der Stadt Schleswig) ───────────────────────

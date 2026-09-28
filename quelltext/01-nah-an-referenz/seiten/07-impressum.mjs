@@ -29,7 +29,7 @@ export default function inhalt(ctx) {
     <dl class="angaben angaben-schmal">
       <div><dt>Telefon</dt><dd>${ctx.telefonLink('link-gross')}</dd></div>
       <div><dt>Telefax</dt><dd>${ctx.fax()}</dd></div>
-      <div><dt>E-Mail</dt><dd>${ctx.email()}</dd></div>
+      <div><dt>E-Mail</dt><dd>${ctx.email()}<span class="angaben-hinweis">${esc(ctx.emailHinweis)}</span></dd></div>
     </dl>
 
     <h2>Berufsrechtliche Angaben</h2>

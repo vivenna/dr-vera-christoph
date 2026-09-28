@@ -2,7 +2,24 @@
 import { icon, markeInline, terminKnopf, sprechzeitenListe } from './bausteine.mjs';
 
 export default function layout(ctx, inhalt) {
-  const { praxis, esc } = ctx;
+  const { praxis, esc, seite } = ctx;
+
+  // Schlichte Seite ohne Kopf, Navigation oder Fuß – etwa die Zwischenseite
+  // der Terminbuchung, solange sie noch eingerichtet wird.
+  if (seite.minimal) {
+    return `<html lang="de">
+<head>
+${ctx.kopf()}
+<link rel="stylesheet" href="assets/css/stil.css">
+${ctx.favicons()}
+</head>
+<body class="minimalseite">
+<main id="inhalt" class="minimalseite__flaeche">
+${inhalt}
+</main>
+</body>
+</html>`;
+  }
 
   // Hauptnavigation: alle Seiten mit `menue`-Beschriftung, in Dateireihenfolge
   const menue = ctx.seiten

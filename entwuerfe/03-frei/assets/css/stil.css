@@ -931,3 +931,14 @@ main:focus { outline: none; } /* Sprungziel, wird nur programmatisch fokussiert 
   .fuss { background: none; color: #000; }
   .fuss a, a { color: #000; }
 }
+
+/* ── Schlichte Zwischenseite (z. B. Terminbuchung) ── */
+.minimalseite__flaeche {
+  display: grid;
+  place-items: center;
+  gap: var(--a3);
+  min-height: 100vh;
+  padding: var(--a4);
+  text-align: center;
+}
+.minimalseite__flaeche h1 { font-size: var(--fs-h2); margin: 0; }

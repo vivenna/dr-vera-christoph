@@ -55,20 +55,8 @@ ${seitenkopf({
           <dd><a class="kontaktliste__telefon" href="${praxis.telefon.href}">${esc(praxis.telefon.anzeige)}</a></dd>
         </div>
         <div class="kontaktliste__zeile">
-          <dt>${icon('mail')}<span>E-Mail</span></dt>
-          <dd>${ctx.email()}</dd>
-        </div>
-        <div class="kontaktliste__zeile">
-          <dt>${icon('fax')}<span>Telefax</span></dt>
-          <dd>${ctx.fax()}</dd>
-        </div>
-        <div class="kontaktliste__zeile">
           <dt>${icon('ort')}<span>Anschrift</span></dt>
           <dd>${esc(praxis.praxisname)}<br>${esc(praxis.adresse.strasse)}<br>${esc(praxis.adresse.plz)} ${esc(praxis.adresse.stadt)}</dd>
-        </div>
-        <div class="kontaktliste__zeile">
-          <dt>${icon('sprache')}<span>Sprachen</span></dt>
-          <dd>${ctx.angabe('sprachen')}</dd>
         </div>
       </dl>
     </div>
@@ -76,7 +64,7 @@ ${seitenkopf({
       <h3>${icon('kalender')}<span>Termin vereinbaren</span></h3>
       <p>${ctx.termin.extern
         ? 'Ihren Termin buchen Sie online oder vereinbaren ihn telefonisch während der Sprechzeiten.'
-        : 'Termine vergeben wir telefonisch während der Sprechzeiten. Eine Online-Terminbuchung ist in Vorbereitung.'}</p>
+        : 'Termine vergeben wir telefonisch während der Sprechzeiten.'}</p>
       ${terminKnopf(ctx)}
       <p class="infokarte__klein"><a href="besuch.html#sprechzeiten">Unsere Sprechzeiten</a></p>
     </div>
@@ -89,15 +77,15 @@ ${seitenkopf({
       <h2 id="lage-titel">Lage und Karte</h2>
       <p class="anschrift">${icon('ort')}<span>${anschrift(ctx)}</span></p>
       <p>${esc(anfahrt.lage)} Zu Fuß sind es von der Fußgängerzone nur wenige Schritte.</p>
-      <p class="weiter"><a class="weiter__link" href="${karte.link}" target="_blank" rel="noopener noreferrer">${icon('extern')}<span>Karte bei OpenStreetMap öffnen<span class="nur-sr"> (öffnet in neuem Fenster)</span></span></a></p>
+      <p class="weiter"><a class="weiter__link" href="${karte.link}" target="_blank" rel="noopener noreferrer">${icon('extern')}<span>Karte bei Google Maps öffnen<span class="nur-sr"> (öffnet in neuem Fenster)</span></span></a></p>
     </div>
     <div class="karte" data-karte data-src="${esc(karte.einbettung)}">
       <div class="karte__flaeche">
         <img class="karte__bild" src="assets/bilder/karte-platzhalter.svg" alt="" width="800" height="520">
         <div class="karte__hinweis">
           <p class="karte__titel">${icon('ort')}<span>Karte der Umgebung</span></p>
-          <p>Zum Schutz Ihrer Daten zeigen wir die Karte erst auf Ihren Wunsch. Mit einem Klick auf „Karte laden“ willigen Sie ein, dass Ihre IP-Adresse an die OpenStreetMap Foundation im Vereinigten Königreich übertragen wird. <a href="datenschutz.html#karte">Mehr dazu</a></p>
-          <p class="karte__ohne-js">In Ihrem Browser ist JavaScript ausgeschaltet. Die Karte öffnen Sie über den Link „Karte bei OpenStreetMap öffnen“.</p>
+          <p>Zum Schutz Ihrer Daten zeigen wir die Karte erst auf Ihren Wunsch. Mit einem Klick auf „Karte laden“ willigen Sie ein, dass Ihre IP-Adresse an Google übertragen wird. <a href="datenschutz.html#karte">Mehr dazu</a></p>
+          <p class="karte__ohne-js">In Ihrem Browser ist JavaScript ausgeschaltet. Die Karte öffnen Sie über den Link „Karte bei Google Maps öffnen“.</p>
           <button class="knopf knopf--voll karte__knopf" type="button" data-karte-laden>${icon('ort')}<span>Karte laden</span></button>
         </div>
       </div>

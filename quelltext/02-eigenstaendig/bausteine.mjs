@@ -234,14 +234,14 @@ export function karte(ctx) {
 <div class="karte-flaeche">
 <img class="karte-bild" src="assets/bilder/karte-platzhalter.svg" alt="" width="1200" height="560" loading="lazy">
 <div class="karte-hinweis">
-<p class="karte-text">Die Karte wird erst geladen, wenn Sie auf „Karte laden“ klicken. Mit dem Klick willigen Sie ein, dass Ihre IP-Adresse an die OpenStreetMap Foundation (Vereinigtes Königreich) übertragen wird. Mehr dazu in der <a href="datenschutz.html#karte">Datenschutzerklärung</a>.</p>
-<p class="karte-ohne-js">Über den Link „Karte bei OpenStreetMap öffnen“ unter dieser Fläche sehen Sie die Lage der Praxis direkt auf openstreetmap.org.</p>
+<p class="karte-text">Die Karte wird erst geladen, wenn Sie auf „Karte laden“ klicken. Mit dem Klick willigen Sie ein, dass Ihre IP-Adresse an Google übertragen wird. Mehr dazu in der <a href="datenschutz.html#karte">Datenschutzerklärung</a>.</p>
+<p class="karte-ohne-js">Über den Link „Karte bei Google Maps öffnen“ unter dieser Fläche sehen Sie die Lage der Praxis direkt auf google.com/maps.</p>
 <button class="knopf karte-laden" type="button" hidden>Karte laden</button>
 </div>
 </div>
 <div class="karte-leiste">
 <p class="karte-adresse">${symbol('ort')}<span>${ctx.esc(a.strasse)}, ${ctx.esc(a.plz)} ${ctx.esc(a.stadt)}</span></p>
-<p class="karte-links"><a class="karte-extern" href="${ctx.esc(k.link)}" target="_blank" rel="noopener noreferrer"><span>Karte bei OpenStreetMap öffnen</span>${symbol('extern')}<span class="unsichtbar"> (öffnet in neuem Fenster)</span></a></p>
+<p class="karte-links"><a class="karte-extern" href="${ctx.esc(k.link)}" target="_blank" rel="noopener noreferrer"><span>Karte bei Google Maps öffnen</span>${symbol('extern')}<span class="unsichtbar"> (öffnet in neuem Fenster)</span></a></p>
 <p class="karte-quelle" hidden>Kartendaten: <a href="${ctx.esc(k.lizenzLink)}" target="_blank" rel="noopener noreferrer"><span>${ctx.esc(k.quellenhinweis)}</span><span class="unsichtbar"> (öffnet in neuem Fenster)</span></a></p>
 </div>
 </div>`;

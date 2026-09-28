@@ -28,7 +28,7 @@ ${seitenkopf({ dach: 'Rechtliches', titel: 'Impressum' })}
       <dl class="angaben">
         <div><dt>Telefon</dt><dd>${ctx.telefonLink()}</dd></div>
         <div><dt>Telefax</dt><dd>${ctx.fax()}</dd></div>
-        <div><dt>E-Mail</dt><dd>${ctx.email()}</dd></div>
+        <div><dt>E-Mail</dt><dd>${ctx.email()}<span class="angaben-hinweis">${esc(ctx.emailHinweis)}</span></dd></div>
       </dl>
     </section>
 

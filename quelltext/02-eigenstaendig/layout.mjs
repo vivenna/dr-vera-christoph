@@ -8,13 +8,32 @@
 
 import { symbol, terminKnopf, sprechzeitenKompakt } from './bausteine.mjs';
 
-// Eigennamen, die die automatische Silbentrennung falsch trennt („OpenS-treetMap“),
-// werden in <span class="wort"> gefasst (CSS: hyphens: manual). Nur im Text, nie in Attributen.
-const SCHUETZEN = /OpenStreetMap(?![^<]*>)/g;
+// Eigennamen, die die automatische Silbentrennung falsch trennt („Google
+// Ma-ps“), werden in <span class="wort"> gefasst (CSS: hyphens: manual).
+// Nur im Text, nie in Attributen.
+const SCHUETZEN = /Google Maps(?![^<]*>)/g;
 
 export default function layout(ctx, inhalt) {
-  const { praxis, esc } = ctx;
+  const { praxis, esc, seite } = ctx;
   inhalt = inhalt.replace(SCHUETZEN, '<span class="wort">$&</span>');
+
+  // Schlichte Seite ohne Kopf, Navigation oder Fuß – etwa die Zwischenseite
+  // der Terminbuchung, solange sie noch eingerichtet wird.
+  if (seite.minimal) {
+    return `<html lang="de">
+<head>
+${ctx.kopf()}
+<link rel="stylesheet" href="assets/css/stil.css">
+${ctx.favicons()}
+</head>
+<body class="minimalseite">
+<main id="inhalt" class="minimalseite-flaeche">
+${inhalt}
+</main>
+</body>
+</html>`;
+  }
+
   const t = praxis.telefon;
   const a = praxis.adresse;
   const jahr = ctx.website.stand.slice(0, 4);
@@ -77,7 +96,6 @@ ${sprechzeitenKompakt(ctx)}
 <div class="fuss-spalte">
 <h2 class="fuss-titel">Kontakt</h2>
 <p class="fuss-zeile">${symbol('telefon')}<a class="fuss-telefon" href="${t.href}"><span class="unsichtbar">Telefon </span>${esc(t.anzeige)}</a></p>
-<p class="fuss-zeile fuss-email"><span class="unsichtbar">E-Mail: </span>${ctx.email()}</p>
 <p class="fuss-zeile"><a class="fuss-link" href="kontakt.html">Alle Kontaktwege</a></p>
 </div>
 <div class="fuss-spalte">

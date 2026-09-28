@@ -41,10 +41,7 @@ ${abschnitt({
   titel: 'So erreichen Sie uns',
   inhalt: `<dl class="kontaktwege">
 <div><dt>${symbol('telefon')}Telefon</dt><dd><a class="gross-link" href="${p.telefon.href}">${esc(p.telefon.anzeige)}</a><span class="kontaktwege-notiz">während der <a href="sprechzeiten.html">Sprechzeiten</a></span></dd></div>
-<div><dt>${symbol('kalender')}Termin</dt><dd>${ctx.termin.extern ? 'Online oder telefonisch' : 'Telefonisch – die Online-Terminbuchung ist in Vorbereitung'}<span class="kontaktwege-link">${terminKnopf(ctx, { klasse: 'knopf knopf-zweit knopf-klein' })}</span></dd></div>
-<div><dt>${symbol('brief')}E-Mail</dt><dd>${ctx.email()}</dd></div>
-<div><dt>${symbol('dokument')}Fax</dt><dd>${ctx.fax()}</dd></div>
-<div><dt>${symbol('personen')}Sprachen</dt><dd>${ctx.angabe('sprachen')}</dd></div>
+<div><dt>${symbol('kalender')}Termin</dt><dd>${ctx.termin.extern ? 'Online oder telefonisch' : 'Telefonisch'}<span class="kontaktwege-link">${terminKnopf(ctx, { klasse: 'knopf knopf-zweit knopf-klein' })}</span></dd></div>
 </dl>`,
 })}
 

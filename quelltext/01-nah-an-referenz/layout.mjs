@@ -11,6 +11,23 @@ import { terminLink, fremdLink, zeitenGruppen } from './bausteine.mjs';
 export default function layout(ctx, inhalt) {
   const { praxis, esc, seite } = ctx;
 
+  // Schlichte Seite ohne Kopf, Navigation, Karte oder Fuß – etwa die
+  // Zwischenseite der Terminbuchung, solange sie noch eingerichtet wird.
+  if (seite.minimal) {
+    return `<html lang="de">
+<head>
+${ctx.kopf()}
+<link rel="stylesheet" href="assets/css/stil.css">
+${ctx.favicons()}
+</head>
+<body class="seite-${esc(seite.datei.replace('.html', ''))} minimalseite">
+<main id="inhalt" class="minimalseite-flaeche">
+${inhalt}
+</main>
+</body>
+</html>`;
+  }
+
   // Hauptnavigation in der Reihenfolge der Seitendateien (NN-name.mjs)
   const menue = ctx.seiten
     .filter((s) => s.navText) // nur Seiten mit Menütext stehen in der Pille
@@ -29,16 +46,16 @@ export default function layout(ctx, inhalt) {
       <img class="karte-deko" src="assets/bilder/karte-flaeche.svg" alt="" width="1440" height="420" loading="lazy">
       <div class="karte-hinweis">
         <p class="karte-adresse">${esc(praxis.adresseEinzeilig)}</p>
-        <p>Die Karte stammt von OpenStreetMap und wird erst geladen, wenn Sie auf „Karte laden“ klicken. Mit dem Klick willigen Sie ein, dass Ihre IP-Adresse an die OpenStreetMap Foundation im Vereinigten Königreich übertragen wird. Mehr dazu in der <a href="datenschutz.html#karte">Datenschutzerklärung</a>.</p>
+        <p>Die Karte stammt von Google Maps und wird erst geladen, wenn Sie auf „Karte laden“ klicken. Mit dem Klick willigen Sie ein, dass Ihre IP-Adresse an Google übertragen wird. Mehr dazu in der <a href="datenschutz.html#karte">Datenschutzerklärung</a>.</p>
         <div class="karte-aktionen">
           <button type="button" class="knopf karte-laden">Karte laden</button>
-          ${fremdLink(esc(ctx.karte.link), 'Karte bei OpenStreetMap öffnen', 'link-gross')}
+          ${fremdLink(esc(ctx.karte.link), 'Karte bei Google Maps öffnen', 'link-gross')}
         </div>
       </div>
     </div>
     <p class="karte-quelle" hidden>
       <span class="karte-quelle-adresse">${esc(praxis.adresseEinzeilig)}</span>
-      ${fremdLink(esc(ctx.karte.link), 'Karte bei OpenStreetMap öffnen', 'link-gross')}
+      ${fremdLink(esc(ctx.karte.link), 'Karte bei Google Maps öffnen', 'link-gross')}
       <span class="karte-quelle-hinweis">Kartendaten ${fremdLink(esc(ctx.karte.lizenzLink), esc(ctx.karte.quellenhinweis), 'link-gross')}</span>
     </p>
   </section>`
@@ -95,7 +112,6 @@ ${karte}
       <div class="fuss-block">
         <h2>Kontakt</h2>
         <p>Telefon: ${ctx.telefonLink('link-gross')}</p>
-        <p>E-Mail: ${ctx.email()}</p>
         <address>${esc(praxis.aerztin)}<br>${esc(praxis.adresse.strasse)}<br>${esc(praxis.adresse.plz)} ${esc(praxis.adresse.stadt)}</address>
       </div>
       <div class="fuss-block">
@@ -112,7 +128,6 @@ ${zeiten}
         </ul>
       </nav>
     </div>
-    <p class="fuss-zeile">${esc(praxis.praxisname)} · ${esc(praxis.fachrichtung)} · ${esc(praxis.adresseEinzeilig)}</p>
   </div>
 </footer>
 </body>

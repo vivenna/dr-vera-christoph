@@ -1105,3 +1105,14 @@ h1.abschnitt-titel { font-size: var(--fs-h1); }
     scroll-behavior: auto !important;
   }
 }
+
+/* ---------- Schlichte Zwischenseite (z. B. Terminbuchung) ---------- */
+.minimalseite-flaeche {
+  display: grid;
+  place-items: center;
+  gap: 24px;
+  min-height: 100vh;
+  padding: var(--rand);
+  text-align: center;
+}
+.minimalseite-flaeche h1 { font-size: var(--fs-h2); margin: 0; }
