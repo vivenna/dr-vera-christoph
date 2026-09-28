@@ -52,11 +52,10 @@ ${seitenkopf({
       <div class="nur-breit">${sprechzeitenTabelle(ctx, { form: 'voll', klasse: 'zeiten--gross' })}</div>
     </div>
     <div class="infokarte">
-      <h3>${icon('telefon')}<span>Telefonisch erreichbar</span></h3>
-      <p>Am besten erreichen Sie uns während der Sprechzeiten unter</p>
-      <p class="infokarte__nummer">${ctx.telefonLink()}</p>
-      <p>Termine außerhalb dieser Zeiten sind nach Vereinbarung möglich. Sprechen Sie uns einfach an.</p>
+      <h3>${icon('kalender')}<span>Termin vereinbaren</span></h3>
+      <p>Ihren Termin vereinbaren Sie ganz einfach über die Schaltfläche unten – auch außerhalb der Sprechzeiten.</p>
       ${terminKnopf(ctx)}
+      <p class="infokarte__klein">Bei Fragen erreichen Sie uns während der Sprechzeiten unter ${ctx.telefonLink()}.</p>
     </div>
   </div>
 </section>

@@ -31,7 +31,7 @@ ${seitenkopf({
 <section class="abschnitt raster abschnitt-tabelle" aria-labelledby="woche-titel">
 <div class="rand">
 <p class="stichwort">Wochenübersicht</p>
-<p class="rand-text">${ctx.termin.extern ? 'Termine buchen Sie online oder vereinbaren sie telefonisch.' : 'Termine vereinbaren Sie am einfachsten telefonisch.'}</p>
+<p class="rand-text">${ctx.termin.extern ? 'Termine buchen Sie online oder vereinbaren sie telefonisch.' : 'Ihren Termin vereinbaren Sie bequem online.'}</p>
 </div>
 <div class="haupt">
 <h2 id="woche-titel" class="unsichtbar">Sprechzeiten nach Wochentagen</h2>
@@ -46,7 +46,7 @@ ${abschnitt({
   titel: 'So erreichen Sie uns',
   inhalt: `<dl class="kontaktwege">
 <div><dt>${symbol('telefon')}Telefon</dt><dd><a class="gross-link" href="${p.telefon.href}">${esc(p.telefon.anzeige)}</a><span class="kontaktwege-notiz">während der Sprechzeiten</span></dd></div>
-<div><dt>${symbol('kalender')}Termin</dt><dd>${ctx.termin.extern ? 'Online oder telefonisch' : 'Telefonisch'}<span class="kontaktwege-link">${terminKnopf(ctx, { klasse: 'knopf knopf-zweit knopf-klein' })}</span></dd></div>
+<div><dt>${symbol('kalender')}Termin</dt><dd>${ctx.termin.extern ? 'Online oder telefonisch' : 'Online'}<span class="kontaktwege-link">${terminKnopf(ctx, { klasse: 'knopf knopf-zweit knopf-klein' })}</span></dd></div>
 </dl>`,
 })}
 

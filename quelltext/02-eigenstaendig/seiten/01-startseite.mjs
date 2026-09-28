@@ -30,7 +30,7 @@ export default function inhalt(ctx) {
 
   const terminNotiz = ctx.termin.extern
     ? 'Termine können Sie online buchen oder telefonisch vereinbaren.'
-    : 'Ihren Termin vereinbaren Sie bitte telefonisch.';
+    : 'Ihren Termin vereinbaren Sie bequem online.';
 
   return `
 <div class="einstieg raster">
@@ -57,7 +57,7 @@ ${terminKnopf(ctx)}
 ${abschnitt({
   id: 'sprechzeiten',
   stichwort: 'Sprechzeiten',
-  rand: `<p class="rand-text">Am schnellsten erreichen Sie uns telefonisch unter <a href="${p.telefon.href}">${esc(p.telefon.anzeige)}</a>.</p>`,
+  rand: `<p class="rand-text">Bei Fragen zu den Sprechzeiten erreichen Sie uns telefonisch unter <a href="${p.telefon.href}">${esc(p.telefon.anzeige)}</a>.</p>`,
   titel: 'Sprechzeiten auf einen Blick',
   inhalt: `${wochenleiste(ctx)}
 <p class="woche-zusatz">${esc(p.sprechzeitenZusatz)}</p>

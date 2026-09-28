@@ -41,7 +41,7 @@ export default function inhalt(ctx) {
 ${seitenkopf({
   dach: 'Anfahrt und Kontakt',
   titel: 'So erreichen Sie uns',
-  einleitung: `${esc(anfahrt.lage)} Am schnellsten erreichen Sie uns telefonisch.`,
+  einleitung: `${esc(anfahrt.lage)} Ihren Termin vereinbaren Sie am einfachsten online.`,
   sprung,
 })}
 
@@ -64,7 +64,7 @@ ${seitenkopf({
       <h3>${icon('kalender')}<span>Termin vereinbaren</span></h3>
       <p>${ctx.termin.extern
         ? 'Ihren Termin buchen Sie online oder vereinbaren ihn telefonisch während der Sprechzeiten.'
-        : 'Termine vergeben wir telefonisch während der Sprechzeiten.'}</p>
+        : 'Ihren Termin vereinbaren Sie ganz einfach online.'}</p>
       ${terminKnopf(ctx)}
       <p class="infokarte__klein"><a href="besuch.html#sprechzeiten">Unsere Sprechzeiten</a></p>
     </div>

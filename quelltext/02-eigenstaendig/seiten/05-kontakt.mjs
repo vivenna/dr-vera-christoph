@@ -32,7 +32,7 @@ ${ctx.parkplaetze.map((x) => `<li><span class="park-nr">${esc(x.nr)}</span><span
 ${seitenkopf({
   stichwort: 'Kontakt',
   titel: 'Kontakt und Anfahrt',
-  einleitung: 'Am schnellsten erreichen Sie uns telefonisch während der Sprechzeiten. Hier finden Sie außerdem den Weg zur Praxis und aktuelle Hinweise zum Parken in der Innenstadt.',
+  einleitung: 'Ihren Termin vereinbaren Sie bequem online. Hier finden Sie außerdem den Weg zur Praxis und aktuelle Hinweise zum Parken in der Innenstadt.',
 })}
 
 ${abschnitt({
@@ -41,7 +41,7 @@ ${abschnitt({
   titel: 'So erreichen Sie uns',
   inhalt: `<dl class="kontaktwege">
 <div><dt>${symbol('telefon')}Telefon</dt><dd><a class="gross-link" href="${p.telefon.href}">${esc(p.telefon.anzeige)}</a><span class="kontaktwege-notiz">während der <a href="sprechzeiten.html">Sprechzeiten</a></span></dd></div>
-<div><dt>${symbol('kalender')}Termin</dt><dd>${ctx.termin.extern ? 'Online oder telefonisch' : 'Telefonisch'}<span class="kontaktwege-link">${terminKnopf(ctx, { klasse: 'knopf knopf-zweit knopf-klein' })}</span></dd></div>
+<div><dt>${symbol('kalender')}Termin</dt><dd>${ctx.termin.extern ? 'Online oder telefonisch' : 'Online'}<span class="kontaktwege-link">${terminKnopf(ctx, { klasse: 'knopf knopf-zweit knopf-klein' })}</span></dd></div>
 </dl>`,
 })}
 
