@@ -1,6 +1,6 @@
 // Entwurf 2 – kleines Skript ohne Abhängigkeiten.
 // Die Seite funktioniert auch ohne JavaScript: Das Menü ist dann immer offen,
-// die Karte lässt sich über den Link zu OpenStreetMap ansehen.
+// die Karte lässt sich über den Link zu Google Maps ansehen.
 (function () {
   'use strict';
 
@@ -27,7 +27,7 @@
   }
 
   // ── Karte: erst nach Klick laden (Zwei-Klick-Lösung) ─────────────────────
-  // Vorher wird keine Verbindung zu OpenStreetMap aufgebaut.
+  // Vorher wird keine Verbindung zu Google aufgebaut.
   var karten = document.querySelectorAll('[data-karte]');
   Array.prototype.forEach.call(karten, function (karte) {
     var laden = karte.querySelector('.karte-laden');
@@ -40,6 +40,8 @@
       rahmen.src = karte.getAttribute('data-src');
       rahmen.title = karte.getAttribute('data-titel') || 'Karte';
       rahmen.loading = 'lazy';
+      rahmen.referrerPolicy = 'strict-origin-when-cross-origin';
+      rahmen.allowFullscreen = true;
       flaeche.textContent = '';
       flaeche.appendChild(rahmen);
       if (quelle) quelle.hidden = false;

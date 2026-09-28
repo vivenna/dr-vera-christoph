@@ -65,6 +65,8 @@
         rahmen.src = karte.getAttribute('data-src');
         rahmen.title = 'Karte: Lage der Praxis, Plessenstraße 13';
         rahmen.loading = 'lazy';
+        rahmen.referrerPolicy = 'strict-origin-when-cross-origin';
+        rahmen.allowFullscreen = true;
         var flaeche = karte.querySelector('.karte__flaeche');
         flaeche.innerHTML = '';
         flaeche.appendChild(rahmen);

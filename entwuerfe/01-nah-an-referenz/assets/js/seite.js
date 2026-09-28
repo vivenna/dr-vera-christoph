@@ -2,7 +2,7 @@
    1. Menü auf dem Telefon auf- und zuklappen (Esc schließt, Fokus kehrt zurück).
    2. Karte erst nach Klick laden (Zwei-Klick-Lösung, vorher keine fremde Anfrage).
    Ohne JavaScript bleibt alles nutzbar: Das Menü ist dann als Liste sichtbar,
-   und der Link „Karte bei OpenStreetMap öffnen“ steht immer bereit. */
+   und der Link „Karte bei Google Maps öffnen“ steht immer bereit. */
 (function () {
   'use strict';
 
@@ -52,14 +52,15 @@
       rahmen.className = 'karte-rahmen';
       rahmen.title = 'Karte: Lage der Praxis, Plessenstraße 13';
       rahmen.loading = 'lazy';
-      rahmen.referrerPolicy = 'no-referrer';
+      rahmen.referrerPolicy = 'strict-origin-when-cross-origin';
+      rahmen.allowFullscreen = true;
       rahmen.src = bereich.getAttribute('data-karte');
 
       var buehne = bereich.querySelector('.karte-buehne');
       buehne.parentNode.replaceChild(rahmen, buehne);
 
-      // Zeile unter der Karte einblenden: Adresse, Link zu OpenStreetMap und
-      // Quellenhinweis „© OpenStreetMap-Mitwirkende“ bleiben so weiter sichtbar
+      // Zeile unter der Karte einblenden: Adresse, Link zu Google Maps und
+      // Quellenhinweis „© Google Maps“ bleiben so weiter sichtbar
       var quelle = bereich.querySelector('.karte-quelle');
       if (quelle) quelle.hidden = false;
 

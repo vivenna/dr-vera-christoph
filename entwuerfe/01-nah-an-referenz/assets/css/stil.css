@@ -778,7 +778,7 @@ h1.abschnitt-titel { font-size: var(--fs-h1); }
   height: 420px;
   border: 0;
 }
-/* Zeile unter der geladenen Karte: Adresse, Link zu OpenStreetMap, Quellenhinweis */
+/* Zeile unter der geladenen Karte: Adresse, Link zu Google Maps, Quellenhinweis */
 .karte-quelle {
   display: flex;
   flex-wrap: wrap;
