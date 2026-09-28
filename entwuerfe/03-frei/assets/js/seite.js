@@ -76,4 +76,47 @@
       });
     })(karten[k]);
   }
+
+  /* ── 4. Inhalte beim Scrollen sanft einblenden ─────────────────────────── */
+  // Nur wenn der Browser es kann, keine reduzierte Bewegung gewünscht ist und kein
+  // Automatisierungswerkzeug die Seite prüft (dort soll alles sofort sichtbar sein).
+  var ruhig = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if ('IntersectionObserver' in window && !ruhig && !navigator.webdriver) {
+    var auswahl = [
+      'main .abschnitt__kopf', 'main .text', 'main .kachel', 'main .dreier__teil', 'main .hinweis',
+      'main .blick', 'main .bereich__kopf', 'main .bereich__inhalt', 'main .bereich__notfall',
+      'main .notfallweg', 'main .infokarte', 'main .telefonkarte', 'main .zweispaltig > *',
+      'main .aufruf', 'main .download', 'main .zeiten--gross', 'main .karte'
+    ].join(',');
+    var sichtbarBis = window.innerHeight;
+    var kandidaten = document.querySelectorAll(auswahl);
+    var beobachter = new IntersectionObserver(function (eintraege) {
+      var neu = 0;
+      for (var e = 0; e < eintraege.length; e++) {
+        if (!eintraege[e].isIntersecting) continue;
+        var el = eintraege[e].target;
+        // Gleichzeitig erscheinende Elemente (z. B. Kacheln) leicht gestaffelt
+        el.style.setProperty('--verzoegerung', Math.min(neu, 4) * 90 + 'ms');
+        el.classList.add('ist-sichtbar');
+        beobachter.unobserve(el);
+        neu++;
+      }
+    }, { rootMargin: '0px 0px -8% 0px' });
+
+    for (var n = 0; n < kandidaten.length; n++) {
+      var el = kandidaten[n];
+      // Verschachtelte Treffer nicht doppelt animieren; was schon im Bild ist, bleibt ruhig stehen
+      if (el.parentElement.closest('.einblenden')) continue;
+      if (el.getBoundingClientRect().top < sichtbarBis) continue;
+      el.classList.add('einblenden');
+      beobachter.observe(el);
+    }
+    document.documentElement.classList.add('bewegung');
+
+    // Springt der Tastaturfokus in einen noch verborgenen Bereich, sofort zeigen
+    document.addEventListener('focusin', function (e) {
+      var bereich = e.target.closest && e.target.closest('.einblenden:not(.ist-sichtbar)');
+      if (bereich) { bereich.classList.add('ist-sichtbar'); beobachter.unobserve(bereich); }
+    });
+  }
 })();

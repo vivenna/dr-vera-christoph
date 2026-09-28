@@ -99,15 +99,10 @@ ${seitenkopf({
     <div class="abschnitt__kopf">
       <h2 id="parken-titel">Parken in der Innenstadt</h2>
     </div>
-    <div class="hinweis hinweis--gross">
-      <div class="hinweis__kopf">
-        ${icon('warnung', 'icon icon--riesig')}
-        <h3 class="hinweis__titel">Das Innenstadt-Parkhaus ist gesperrt</h3>
-      </div>
-      <div class="hinweis__text">
-        <p>${esc(anfahrt.parkhausGesperrt)} Bitte planen Sie für die Parkplatzsuche etwas mehr Zeit ein.</p>
-        <p>${esc(anfahrt.kurzparken)}</p>
-      </div>
+    <div class="hinweis">
+      <h3 class="hinweis__titel">${icon('warnung')}<span>Das Innenstadt-Parkhaus ist gesperrt</span></h3>
+      <p>${esc(anfahrt.parkhausGesperrt)} Bitte planen Sie für die Parkplatzsuche etwas mehr Zeit ein.</p>
+      <p>${esc(anfahrt.kurzparken)}</p>
     </div>
 
     <h3 class="zwischentitel">Unsere Empfehlung</h3>

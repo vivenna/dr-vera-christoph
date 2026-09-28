@@ -47,7 +47,7 @@
   --fs-h3: 1.3125rem;
   --fs-h2: clamp(1.75rem, 1.4rem + 1.5vw, 2.5rem);
   --fs-h1: clamp(2.125rem, 1.55rem + 2.7vw, 3.5rem);
-  --zeilenhoehe: 1.6;
+  --zeilenhoehe: 1.65;
 
   /* Abstände (8er-Raster) */
   --a1: 0.5rem;
@@ -57,11 +57,18 @@
   --a5: 3rem;
   --a6: 4rem;
   --a7: 6rem;
-  --rand: clamp(1rem, 4vw, 3rem);
-  --breite: 76rem;
+  --a8: 8rem;
+  /* Luft zwischen den Abschnitten: wächst mit der Bildschirmbreite */
+  --abschnitt: clamp(4.5rem, 2.5rem + 7vw, 9rem);
+  --abschnitt-kopf: clamp(2.5rem, 1.75rem + 2.5vw, 4rem); /* Überschrift → Inhalt */
+  --rand: clamp(1.25rem, 5vw, 4rem);
+  --breite: 72rem;
   --radius: 0.5rem;
   --radius-gross: 0.875rem;
-  --zeit: 150ms;
+  --zeit: 200ms;
+  --zeit-ruhig: 800ms;
+  --sanft: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --schatten: 0 18px 40px -24px rgba(14, 58, 68, 0.28);
 }
 @media (min-width: 48em) {
   :root {
@@ -89,7 +96,7 @@ p, li, dd, dt, td, th, address, figcaption, blockquote {
   overflow-wrap: break-word;
   hyphens: auto;
 }
-p { margin: 0 0 var(--a2); }
+p { margin: 0 0 1.25rem; }
 p:last-child { margin-bottom: 0; }
 address { font-style: normal; }
 .zusammen { white-space: nowrap; }
@@ -103,7 +110,7 @@ h1, h2, h3, h4 {
   font-weight: 600;
   color: var(--tief);
   line-height: 1.2;
-  margin: 0 0 var(--a2);
+  margin: 0 0 var(--a3);
   overflow-wrap: break-word;
   text-wrap: balance;
   /* Lange Wörter wie „Führerscheingutachten“ auf dem Telefon trennen statt überlaufen lassen */
@@ -120,8 +127,13 @@ a {
   text-decoration: underline;
   text-decoration-thickness: 1px;
   text-underline-offset: 0.18em;
+  /* Unterstreichung zunächst zurückhaltend, beim Überfahren kräftig */
+  text-decoration-color: color-mix(in srgb, currentColor 45%, transparent);
+  transition: color var(--zeit), text-decoration-color var(--zeit);
 }
-a:hover { color: var(--tief); text-decoration-thickness: 2px; }
+@media (hover: hover) {
+  a:hover { color: var(--tief); text-decoration-color: currentColor; }
+}
 p a, dd a { hyphens: manual; } /* Linktexte im Text nicht mitten im Wort trennen */
 
 /* Ziffern: Uhrzeiten und Telefonnummern in den Ziffern der Literata.
@@ -184,26 +196,26 @@ main:focus { outline: none; } /* Sprungziel, wird nur programmatisch fokussiert 
   display: flex;
   align-items: center;
   gap: 0.75rem;
-  margin: 0 0 var(--a2);
-  color: var(--backstein);
+  margin: 0 0 var(--a3);
+  color: var(--leise);
   font-size: var(--fs-min);
   font-weight: 700;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.04em;
 }
 .dachzeile::before {
-  /* die drei kürzer werdenden Wasserlinien der Bildmarke */
+  /* die drei kürzer werdenden Wasserlinien der Bildmarke – ruhig in Wasser statt Backstein */
   content: "";
   flex: none;
   width: 1.75rem;
-  height: 0.875rem;
+  height: 0.75rem;
   background:
-    linear-gradient(currentColor 0 0) 0 0 / 100% 3px,
-    linear-gradient(currentColor 0 0) 0 50% / 64% 3px,
-    linear-gradient(currentColor 0 0) 0 100% / 32% 3px;
+    linear-gradient(var(--wasser) 0 0) 0 0 / 100% 2px,
+    linear-gradient(var(--wasser) 0 0) 0 50% / 64% 2px,
+    linear-gradient(var(--wasser) 0 0) 0 100% / 32% 2px;
   background-repeat: no-repeat;
 }
 
-.einleitung { font-size: var(--fs-gross); line-height: 1.55; }
+.einleitung { font-size: var(--fs-gross); line-height: 1.6; }
 
 /* ── Schaltflächen ── */
 .knopf {
@@ -221,13 +233,17 @@ main:focus { outline: none; } /* Sprungziel, wird nur programmatisch fokussiert 
   text-align: center;
   text-decoration: none;
   cursor: pointer;
-  transition: background-color var(--zeit), color var(--zeit), border-color var(--zeit);
+  transition: background-color var(--zeit), color var(--zeit), border-color var(--zeit), box-shadow var(--zeit);
 }
 .knopf--voll { background: var(--petrol); color: var(--weiss); }
-.knopf--voll:hover { background: var(--tief); border-color: var(--tief); color: var(--weiss); }
-.knopf--rand { background: var(--weiss); color: var(--petrol); }
-.knopf--rand:hover { background: var(--wasser-hell); color: var(--tief); }
-.knopfreihe { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: var(--a3); }
+@media (hover: hover) {
+  .knopf--voll:hover { background: var(--tief); border-color: var(--tief); color: var(--weiss); box-shadow: var(--schatten); }
+}
+.knopf--rand { background: var(--weiss); color: var(--petrol); border-color: var(--linie); }
+@media (hover: hover) {
+  .knopf--rand:hover { background: var(--weiss); border-color: var(--petrol); color: var(--tief); }
+}
+.knopfreihe { display: flex; flex-wrap: wrap; gap: var(--a2); margin-top: var(--a5); }
 
 /* Einzeln stehende Links: Klickfläche mindestens 44 px hoch */
 .weiter__link, .fuss__telefon a, .fuss__nummer a, .blick__telefon a, .infokarte__nummer a,
@@ -245,14 +261,18 @@ main:focus { outline: none; } /* Sprungziel, wird nur programmatisch fokussiert 
   font-weight: 700;
   text-decoration: none;
 }
-.fuss__telefon a:hover, .fuss__nummer a:hover, .blick__telefon a:hover, .infokarte__nummer a:hover,
-.telefonkarte__nummer a:hover, .notfallweg__nummer:hover, .kontaktliste__telefon:hover { text-decoration: underline; }
+@media (hover: hover) {
+  .fuss__telefon a:hover, .fuss__nummer a:hover, .blick__telefon a:hover, .infokarte__nummer a:hover,
+  .telefonkarte__nummer a:hover, .notfallweg__nummer:hover, .kontaktliste__telefon:hover { text-decoration: underline; }
+}
 
 /* „Weiter“-Links mit Pfeil */
-.weiter { margin-top: var(--a3); }
+.weiter { margin-top: var(--a5); }
 .weiter__link { font-weight: 700; }
-.weiter__link .icon { transition: transform var(--zeit); }
-.weiter__link:hover .icon { transform: translateX(3px); }
+.weiter__link .icon { transition: transform var(--zeit) var(--sanft); }
+@media (hover: hover) {
+  .weiter__link:hover .icon { transform: translateX(4px); }
+}
 
 /* ── Kopf ── */
 .kopf { background: var(--weiss); border-bottom: 1px solid var(--linie); }
@@ -261,7 +281,7 @@ main:focus { outline: none; } /* Sprungziel, wird nur programmatisch fokussiert 
   flex-wrap: wrap;
   align-items: center;
   gap: 0.75rem 0.5rem;
-  padding-block: 0.75rem;
+  padding-block: var(--a2);
 }
 .kopf__marke {
   display: flex;
@@ -273,7 +293,9 @@ main:focus { outline: none; } /* Sprungziel, wird nur programmatisch fokussiert 
   color: var(--tinte);
   text-decoration: none;
 }
-.kopf__marke:hover { color: var(--tinte); }
+@media (hover: hover) {
+  .kopf__marke:hover { color: var(--tinte); }
+}
 .kopf__marke img { width: 2.375rem; flex: none; }
 .kopf__name { display: flex; flex-direction: column; min-width: 0; line-height: 1.2; }
 .kopf__praxis { font-family: var(--schrift-titel); font-weight: 600; font-size: var(--fs-min); color: var(--tief); }
@@ -291,7 +313,7 @@ main:focus { outline: none; } /* Sprungziel, wird nur programmatisch fokussiert 
   min-height: 3.5rem;
   min-width: 3.5rem;
   padding: 0.3rem 0.25rem;
-  border: 2px solid var(--petrol);
+  border: 2px solid var(--linie);
   border-radius: var(--radius);
   background: var(--weiss);
   color: var(--tief);
@@ -301,7 +323,9 @@ main:focus { outline: none; } /* Sprungziel, wird nur programmatisch fokussiert 
   line-height: 1.1; /* nach „font“, sonst setzt die Kurzschreibweise sie zurück */
   cursor: pointer;
 }
-.js .menue-knopf:hover { background: var(--wasser-hell); }
+@media (hover: hover) {
+  .js .menue-knopf:hover { background: var(--schilf); }
+}
 .menue-knopf .icon--zu, .menue-knopf[aria-expanded="true"] .icon--auf { display: none; }
 .menue-knopf[aria-expanded="true"] .icon--zu { display: block; }
 
@@ -318,60 +342,83 @@ main:focus { outline: none; } /* Sprungziel, wird nur programmatisch fokussiert 
 .kopf__termin .icon { display: none; }
 
 /* Hauptnavigation – mobil als Liste; mit JavaScript eingeklappt */
-.hauptnav { border-top: 1px solid var(--linie); background: var(--schilf); }
-.hauptnav__liste { padding-block: 0.25rem; }
+.hauptnav { background: var(--weiss); }
+.hauptnav__liste {
+  display: grid;
+  gap: 0.125rem;
+  padding-block: var(--a2);
+}
 .hauptnav__liste a {
   display: flex;
   align-items: center;
   min-height: 3.25rem;
-  padding: 0.5rem 0.75rem;
-  border-left: 4px solid transparent;
+  padding: 0.5rem var(--a2);
+  border-radius: var(--radius);
   color: var(--tinte);
   font-weight: 600;
   text-decoration: none;
+  transition: background-color var(--zeit), color var(--zeit);
 }
-.hauptnav__liste li + li a { border-top: 1px solid var(--schilf-linie); }
-.hauptnav__liste a:hover { color: var(--petrol); text-decoration: underline; }
+@media (hover: hover) {
+  .hauptnav__liste a:hover { background: var(--schilf); color: var(--petrol); }
+}
 .hauptnav__liste a[aria-current="page"] {
-  border-left-color: var(--petrol);
+  background: var(--wasser-hell);
   color: var(--tief);
-  font-weight: 800;
-  background: var(--weiss);
+  font-weight: 700;
+}
+@keyframes hauptnav-einblenden {
+  from { opacity: 0; transform: translateY(-0.5rem); }
 }
 @media (max-width: 63.99em) {
+  .kopf { position: relative; }
   .js .hauptnav:not(.ist-offen) { display: none; }
+  /* Aufgeklappt: legt sich als schwebende Karte über den Seiteninhalt,
+     statt ihn nach unten zu schieben */
+  .js .hauptnav.ist-offen {
+    position: absolute;
+    inset: calc(100% + 0.5rem) var(--a2) auto;
+    z-index: 40;
+    max-height: 80vh;
+    overflow-y: auto;
+    border-radius: var(--radius-gross);
+    box-shadow: var(--schatten);
+    animation: hauptnav-einblenden var(--zeit) var(--sanft);
+  }
 }
 
 /* ── Fuß ── */
 .fuss {
   background: var(--tief);
   color: var(--schilf);
-  padding-bottom: var(--a5);
+  padding-bottom: var(--a6);
 }
 .fuss a { color: var(--weiss); }
-.fuss a:hover { color: var(--bernstein); }
+@media (hover: hover) {
+  .fuss a:hover { color: var(--weiss); text-decoration-color: var(--weiss); }
+}
 .fuss :focus-visible { outline-color: var(--bernstein); }
-.fuss__wasser { display: grid; gap: 6px; padding-top: var(--a5); width: min(100% - 2 * var(--rand), var(--breite)); margin-inline: auto; }
-.fuss__wasser span { display: block; height: 3px; border-radius: 3px; background: var(--wasser); }
+.fuss__wasser { display: grid; gap: 6px; padding-top: var(--a6); width: min(100% - 2 * var(--rand), var(--breite)); margin-inline: auto; }
+.fuss__wasser span { display: block; height: 2px; border-radius: 2px; background: var(--wasser); opacity: 0.6; }
 .fuss__wasser span:nth-child(1) { width: 100%; }
 .fuss__wasser span:nth-child(2) { width: 62%; }
 .fuss__wasser span:nth-child(3) { width: 30%; }
 .fuss__raster {
   display: grid;
-  gap: var(--a5) var(--a4);
-  padding-top: var(--a5);
+  gap: var(--a6) var(--a5);
+  padding-top: var(--a6);
 }
 .fuss__titel {
   font-family: var(--schrift);
   font-size: var(--fs-min);
   font-weight: 700;
-  letter-spacing: 0.02em;
-  color: var(--bernstein);
-  margin-bottom: var(--a2);
+  letter-spacing: 0.04em;
+  color: var(--linie);     /* 8,45:1 auf Tiefwasser – ruhiger als Bernstein */
+  margin-bottom: var(--a3);
 }
 .fuss__praxis .fuss__titel { font-family: var(--schrift-titel); font-size: var(--fs-gross); font-weight: 600; color: var(--weiss); letter-spacing: 0; }
 .fuss__praxis .fuss__titel { text-wrap: pretty; }
-.fuss__marke { width: 5rem; height: auto; color: var(--schilf); margin-bottom: var(--a2); }
+.fuss__marke { width: 4.5rem; height: auto; color: var(--schilf); margin-bottom: var(--a3); }
 .fuss address { margin-bottom: var(--a2); }
 .fuss__telefon a, .fuss__nummer a { font-size: var(--fs-gross); }
 .fuss__notfall p { margin-bottom: 0.25rem; }
@@ -381,12 +428,12 @@ main:focus { outline: none; } /* Sprungziel, wird nur programmatisch fokussiert 
   display: flex;
   align-items: center;
   min-height: 2.75rem;
-  text-decoration-color: rgba(255, 255, 255, 0.45);
+  text-decoration-color: rgba(255, 255, 255, 0.3);
 }
-.fuss__nav a[aria-current="page"] { font-weight: 700; text-decoration-color: var(--bernstein); text-decoration-thickness: 3px; }
+.fuss__nav a[aria-current="page"] { font-weight: 700; text-decoration-color: var(--weiss); text-decoration-thickness: 2px; }
 
 .zeitliste { margin: 0; }
-.zeitliste div { display: grid; grid-template-columns: 6.5em 1fr; gap: 0 var(--a2); padding-block: 0.3rem; }
+.zeitliste div { display: grid; grid-template-columns: 6.5em 1fr; gap: 0 var(--a2); padding-block: 0.45rem; }
 .zeitliste dt { font-weight: 700; }
 .zeitliste dd { margin: 0; }
 .zeitliste .zeit { display: block; white-space: nowrap; }
@@ -395,20 +442,21 @@ main:focus { outline: none; } /* Sprungziel, wird nur programmatisch fokussiert 
 @container (max-width: 18.5rem) {
   .zeitliste div { grid-template-columns: 1fr; }
 }
-.zeitliste--fuss div { border-bottom: 1px solid rgba(246, 242, 234, 0.2); }
+.zeitliste--fuss div { border-bottom: 1px solid rgba(246, 242, 234, 0.12); }
 .zeitliste__zusatz { margin-top: var(--a1); font-style: italic; }
 
 /* ── Abschnitte ── */
-.abschnitt { padding-block: var(--a6); }
-.abschnitt--knapp { padding-block: var(--a4) var(--a6); }
-.abschnitt--schilf { background: var(--schilf); }
-.abschnitt--wasser { background: var(--wasser-hell); }
-.abschnitt__kopf { max-width: 44rem; margin-bottom: var(--a4); }
-.abschnitt__kopf p { font-size: var(--fs-gross); }
-.text { max-width: 68ch; }
-.zwischentitel { margin-top: var(--a5); }
+/* Nur noch eine getönte Fläche (Sand). Das frühere Hellwasser ist als Abschnittsfarbe
+   entfallen – Weiß und Sand im Wechsel, damit die Seite ruhig bleibt. */
+.abschnitt { padding-block: var(--abschnitt); }
+.abschnitt--knapp { padding-block: var(--a5) var(--abschnitt); }
+.abschnitt--schilf, .abschnitt--wasser { background: var(--schilf); }
+.abschnitt__kopf { max-width: 40rem; margin-bottom: var(--abschnitt-kopf); }
+.abschnitt__kopf p { font-size: var(--fs-gross); color: var(--leise); }
+.text { max-width: 62ch; }
+.zwischentitel { margin-top: var(--a6); }
 
-.zweispaltig { display: grid; gap: var(--a5); align-items: start; }
+.zweispaltig { display: grid; gap: var(--a6); align-items: start; }
 /* Rasterspalten dürfen schmaler werden als ihr längstes Wort (sonst Überlauf bei 320 px) */
 .zweispaltig > *, .seitenkopf__raster > *, .held__raster > *, .bereich__raster > *,
 .termin__raster > *, .rechtstext > *, .fuss__raster > *, .dreier > *, .kacheln > * { min-width: 0; }
@@ -416,19 +464,17 @@ main:focus { outline: none; } /* Sprungziel, wird nur programmatisch fokussiert 
 /* Seitenkopf der Unterseiten */
 .seitenkopf {
   background: var(--schilf);
-  border-bottom: 1px solid var(--schilf-linie);
-  padding-block: var(--a5);
+  padding-block: clamp(3.5rem, 2rem + 5vw, 7rem);
 }
-.seitenkopf__raster { display: grid; gap: var(--a4); align-items: end; }
-.seitenkopf__text { max-width: 44rem; }
-.seitenkopf h1 { margin-bottom: var(--a3); }
+.seitenkopf__raster { display: grid; gap: var(--a6); align-items: end; }
+.seitenkopf__text { max-width: 40rem; }
+.seitenkopf h1 { margin-bottom: var(--a4); }
 
 /* Sprungliste */
 .sprung {
   background: var(--weiss);
-  border: 1px solid var(--schilf-linie);
   border-radius: var(--radius-gross);
-  padding: var(--a2) var(--a3);
+  padding: var(--a3) var(--a4);
 }
 .sprung__titel { font-size: var(--fs-min); font-weight: 700; color: var(--leise); margin-bottom: var(--a1); }
 .sprung a {
@@ -442,32 +488,38 @@ main:focus { outline: none; } /* Sprungziel, wird nur programmatisch fokussiert 
   text-decoration: none;
 }
 .sprung li + li a { border-top: 1px solid var(--linie); }
-.sprung a .icon { color: var(--petrol); }
+.sprung a .icon { color: var(--leise); transition: color var(--zeit); }
 .sprung a span { flex: 1; }
-.sprung a:hover { color: var(--petrol); text-decoration: underline; }
-.icon--pfeil { width: 1.25rem; height: 1.25rem; transform: rotate(90deg); color: var(--wasser); }
+@media (hover: hover) {
+  .sprung a:hover { color: var(--petrol); }
+  .sprung a:hover .icon { color: var(--petrol); }
+}
+.icon--pfeil { width: 1.25rem; height: 1.25rem; transform: rotate(90deg); color: var(--wasser); transition: translate var(--zeit) var(--sanft); }
+@media (hover: hover) {
+  .sprung a:hover .icon--pfeil { translate: 0 3px; }
+}
 
 /* ── Startseite ── */
-.held { padding-top: var(--a5); overflow: hidden; }
-.held__raster { display: grid; gap: var(--a5); }
-.held h1 { margin-bottom: var(--a3); }
+.held { padding-top: clamp(3.5rem, 2rem + 5vw, 7rem); overflow: hidden; }
+.held__raster { display: grid; gap: var(--a6); }
+.held h1 { margin-bottom: var(--a4); }
 .held__horizont {
   width: 100%;
   height: 7.5rem;
   object-fit: cover;
   object-position: 30% 100%;
-  margin-top: var(--a5);
+  margin-top: var(--a7);
 }
 
-/* Hellwasser-Kästen mit Petrol-Kante: „Auf einen Blick“, Infokarte, Telefonkarte */
+/* Ruhige Sand-Kästen ohne Farbkante: „Auf einen Blick“, Infokarte, Telefonkarte */
 .blick, .infokarte, .telefonkarte {
-  padding: var(--a3);
-  background: var(--wasser-hell);
+  padding: var(--a4) var(--a3);
+  background: var(--schilf);
   border-radius: var(--radius-gross);
-  border-top: 6px solid var(--petrol);
 }
-.blick__titel { font-size: var(--fs-h3); margin-bottom: var(--a3); }
-.blick__teil + .blick__teil { margin-top: var(--a3); padding-top: var(--a3); border-top: 1px solid var(--linie); }
+.abschnitt--schilf .infokarte { background: var(--weiss); }
+.blick__titel { font-size: var(--fs-h3); margin-bottom: var(--a4); }
+.blick__teil + .blick__teil { margin-top: var(--a4); padding-top: var(--a4); border-top: 1px solid var(--schilf-linie); }
 .blick h3 {
   display: flex;
   align-items: center;
@@ -475,38 +527,39 @@ main:focus { outline: none; } /* Sprungziel, wird nur programmatisch fokussiert 
   font-family: var(--schrift);
   font-size: var(--fs-text);
   font-weight: 700;
-  color: var(--petrol);
-  margin-bottom: 0.75rem;
+  color: var(--leise);
+  margin-bottom: var(--a2);
 }
+.blick h3 .icon { color: var(--petrol); }
 .blick__warnung {
   display: flex;
   gap: 0.6rem;
-  margin-top: 0.75rem;
-  padding: 0.75rem;
-  background: var(--weiss);
-  border-left: 4px solid var(--backstein);
-  border-radius: 0 var(--radius) var(--radius) 0;
+  margin-top: var(--a2);
+  padding-left: 0.75rem;
+  border-left: 2px solid var(--backstein);
 }
 .blick__warnung .icon { color: var(--backstein); margin-top: 0.1rem; }
 .blick__telefon a { font-size: 1.625rem; }
 
 /* Sprechzeiten-Tabellen */
 .zeiten { width: 100%; border-collapse: collapse; }
-.zeiten th, .zeiten td { text-align: left; vertical-align: top; padding: 0.45rem 0; }
+.zeiten th, .zeiten td { text-align: left; vertical-align: top; padding: 0.6rem 0; }
 .zeiten tbody tr + tr > * { border-top: 1px solid var(--linie); }
-.zeiten tbody th { font-weight: 700; padding-right: var(--a2); white-space: nowrap; }
+.blick .zeiten tbody tr + tr > * { border-top-color: var(--schilf-linie); }
+/* Wochentage nie trennen; das Etikett „heute“ darf bei Platzmangel unter den Tag rutschen */
+.zeiten tbody th { font-weight: 700; padding-right: var(--a2); hyphens: manual; }
 .zeiten--kompakt td { text-align: right; }
 .zeiten--kompakt .zeit { display: block; white-space: nowrap; }
-.zeiten__zusatz { margin-top: 0.5rem; font-weight: 700; color: var(--petrol); }
-.zeiten tr.ist-heute > * { background: var(--weiss); }
-.zeiten tr.ist-heute th { box-shadow: inset 4px 0 0 var(--backstein); padding-left: 0.75rem; }
+.zeiten__zusatz { margin-top: var(--a2); font-weight: 700; color: var(--leise); }
+/* Heutiger Tag: nur eine feine Petrol-Kante und ein umrandetes Etikett, keine Signalfarbe */
+.zeiten tr.ist-heute th { box-shadow: inset 2px 0 0 var(--petrol); padding-left: 0.75rem; }
 .heute-marke {
   display: inline-block;
   margin-left: 0.4rem;
-  padding: 0 0.45rem;
+  padding: 0 0.5rem;
   border-radius: 999px;
-  background: var(--backstein);
-  color: var(--weiss);
+  border: 1px solid currentColor;
+  color: var(--petrol);
   font-size: var(--fs-min);
   font-weight: 700;
   line-height: 1.5;
@@ -518,20 +571,20 @@ main:focus { outline: none; } /* Sprungziel, wird nur programmatisch fokussiert 
   font-size: var(--fs-text);
   color: var(--leise);
   font-weight: 700;
-  border-bottom: 2px solid var(--petrol);
-  padding-bottom: 0.6rem;
+  border-bottom: 1px solid var(--tief);
+  padding-bottom: 0.75rem;
 }
-.zeiten--gross th, .zeiten--gross td { padding: 0.75rem 0.75rem 0.75rem 0; }
+.zeiten--gross th, .zeiten--gross td { padding: 1rem 0.75rem 1rem 0; }
 .zeiten--gross tr > :last-child { padding-right: 0; }
-.zeiten--gross + .zeiten__zusatz { font-size: var(--fs-gross); margin-top: var(--a2); }
+.zeiten--gross + .zeiten__zusatz { font-size: var(--fs-gross); margin-top: var(--a3); }
 
 /* Kacheln */
-.kacheln { display: grid; gap: var(--a2); }
+.kacheln { display: grid; gap: var(--a3); }
 .kachel, .notfallweg {
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
-  padding: var(--a3);
+  gap: var(--a2);
+  padding: var(--a4) var(--a3);
   background: var(--weiss);
   border: 1px solid var(--linie);
   border-radius: var(--radius-gross);
@@ -542,23 +595,28 @@ main:focus { outline: none; } /* Sprungziel, wird nur programmatisch fokussiert 
 .kachel__titel { font-size: var(--fs-h3); margin: 0; }
 .kachel__titel a { color: var(--tief); text-decoration: none; }
 .kachel__titel a::after { content: ""; position: absolute; inset: 0; border-radius: inherit; } /* ganze Kachel klickbar */
+.kachel p:not(.kachel__fuss) { color: var(--leise); }
 .kachel__fuss { margin-top: auto !important; padding-top: 0.5rem; color: var(--leise); font-size: var(--fs-min); font-weight: 700; }
-.kachel--link { transition: border-color var(--zeit), box-shadow var(--zeit); }
-.kachel--link:hover { border-color: var(--petrol); box-shadow: 0 0 0 1px var(--petrol); }
-.kachel--link:hover .kachel__titel a { text-decoration: underline; }
-.kachel--link:focus-within { border-color: var(--petrol); box-shadow: 0 0 0 1px var(--petrol); }
+/* Überfahren: die Kachel hebt sich kaum merklich an, statt die Farbe zu wechseln */
+.kachel--link { transition: transform var(--zeit) var(--sanft), box-shadow var(--zeit) var(--sanft), border-color var(--zeit); }
+@media (hover: hover) {
+  .kachel--link:hover { transform: translateY(-3px); border-color: var(--schilf-linie); box-shadow: var(--schatten); }
+  .kachel--link:hover .kachel__titel a { color: var(--petrol); }
+}
+.kachel--link:focus-within { border-color: var(--petrol); }
+.kachel__titel a { transition: color var(--zeit); }
 .kachel__titel a:focus-visible { outline-offset: 4px; }
-.kachel--alle .kachel__titel a:focus-visible { outline-color: var(--bernstein); }
-.kachel--alle { background: var(--petrol); border-color: var(--petrol); color: var(--weiss); }
-.kachel--alle > .icon, .kachel--alle .kachel__titel a, .kachel--alle .kachel__fuss { color: var(--weiss); }
-.kachel--alle:hover { background: var(--tief); }
+/* „Alle Leistungen“: gleiche Kachel, nur in Sand statt einer vollen Petrol-Fläche */
+.kachel--alle { background: var(--schilf); border-color: var(--schilf); }
+.kachel--alle .kachel__titel a { color: var(--petrol); }
 .kachel--flach { background: var(--weiss); }
-.abschnitt--schilf .kachel { border-color: var(--schilf-linie); }
+.abschnitt--schilf .kachel { border-color: transparent; }
 
-.text--willkommen { max-width: 52rem; margin-inline: auto; text-align: center; }
+.text--willkommen { max-width: 46rem; margin-inline: auto; text-align: center; }
 .text--willkommen .dachzeile { justify-content: center; }
-.text--willkommen p:not(.dachzeile):not(.unterschrift) { max-width: 62ch; margin-inline: auto; }
-.unterschrift { display: flex; flex-direction: column; align-items: center; margin-top: var(--a3); padding-top: var(--a2); border-top: 1px solid var(--schilf-linie); }
+.text--willkommen h2 { margin-bottom: var(--a5); }
+.text--willkommen p:not(.dachzeile):not(.unterschrift) { max-width: 58ch; margin-inline: auto; }
+.unterschrift { display: flex; flex-direction: column; align-items: center; width: fit-content; margin: var(--a5) auto 0; padding-top: var(--a3); border-top: 1px solid var(--schilf-linie); }
 .unterschrift__name { font-family: var(--schrift-titel); font-size: var(--fs-gross); font-weight: 600; color: var(--tief); }
 
 /* Platzhalter für fehlende Angaben – bewusst auffällig */
@@ -574,26 +632,27 @@ main:focus { outline: none; } /* Sprungziel, wird nur programmatisch fokussiert 
 }
 
 /* Dreier-Gruppe (Besuch, Bus) */
-.dreier { display: grid; gap: var(--a4); }
+.dreier { display: grid; gap: var(--a6); }
 .dreier__teil h3, .infokarte h3, .telefonkarte h2 {
   display: flex;
   align-items: center;
   gap: 0.6rem;
 }
 .dreier__teil h3 .icon, .infokarte h3 .icon, .telefonkarte h2 .icon { color: var(--petrol); width: 1.75rem; height: 1.75rem; }
-.dreier__teil { padding-top: var(--a3); border-top: 3px solid var(--petrol); }
+.dreier__teil { padding-top: var(--a4); border-top: 1px solid var(--linie); }
+.abschnitt--schilf .dreier__teil { border-top-color: var(--schilf-linie); }
 
 .haken { list-style: none; padding: 0; }
-.haken li { position: relative; padding-left: 2rem; margin-bottom: 0.4rem; }
+.haken li { position: relative; padding-left: 2rem; margin-bottom: 0.6rem; }
 .haken li::before {
   content: "";
   position: absolute;
   left: 0.1rem;
   top: 0.45em;
-  width: 1.1rem;
-  height: 0.6rem;
-  border-left: 3px solid var(--wasser);
-  border-bottom: 3px solid var(--wasser);
+  width: 1rem;
+  height: 0.55rem;
+  border-left: 2px solid var(--wasser);
+  border-bottom: 2px solid var(--wasser);
   transform: rotate(-45deg);
 }
 
@@ -601,12 +660,15 @@ main:focus { outline: none; } /* Sprungziel, wird nur programmatisch fokussiert 
 .anschrift .icon { color: var(--petrol); }
 
 /* Hinweis-Kasten (Parken, Pupillen) */
+/* Backstein bleibt echten Hinweisen vorbehalten – aber nur noch als feine Kante und Symbol,
+   die Fläche selbst ist ruhiger Sand */
 .hinweis {
-  padding: var(--a3);
-  background: var(--backstein-hell);
-  border-left: 6px solid var(--backstein);
+  padding: var(--a4) var(--a3);
+  background: var(--schilf);
+  border-left: 3px solid var(--backstein);
   border-radius: 0 var(--radius-gross) var(--radius-gross) 0;
 }
+.abschnitt--schilf .hinweis { background: var(--weiss); }
 .hinweis__titel {
   display: flex;
   align-items: flex-start;
@@ -615,78 +677,86 @@ main:focus { outline: none; } /* Sprungziel, wird nur programmatisch fokussiert 
   color: var(--tief);
 }
 .hinweis__titel .icon, .hinweis__kopf > .icon { color: var(--backstein); }
-.hinweis__kopf { display: grid; gap: var(--a2); margin-bottom: var(--a2); }
+.hinweis__kopf { display: grid; gap: var(--a3); margin-bottom: var(--a3); }
 .hinweis--gross .hinweis__titel { font-size: var(--fs-h2); margin: 0; }
-.hinweis--knapp { margin-top: var(--a4); }
-.hinweis__text, .hinweis > p { max-width: 68ch; }
+.hinweis--knapp { margin-top: var(--a5); }
+.hinweis__text, .hinweis > p { max-width: 62ch; }
 .hinweis .weiter__link { color: var(--tief); }
 
 /* Infokarte (Sprechzeiten, Kontakt) */
-.infokarte .knopf { margin-top: var(--a2); }
-.infokarte__klein { margin-top: var(--a2); }
+.infokarte .knopf { margin-top: var(--a3); }
+.infokarte__klein { margin-top: var(--a3); }
 
 /* Aufruf am Seitenende */
-.aufruf { display: grid; gap: var(--a3); align-items: center; }
+.aufruf { display: grid; gap: var(--a4); align-items: center; }
 .aufruf .knopfreihe { margin-top: 0; }
 
 /* ── Leistungen ── */
-.bereich { padding-block: var(--a6); scroll-margin-top: var(--a2); }
-.bereich--schilf { background: var(--schilf); }
-.bereich__raster { display: grid; gap: var(--a4); }
+/* Alle Bereiche auf Weiß, nur durch eine Haarlinie und viel Luft getrennt */
+.bereich { padding-block: var(--abschnitt); scroll-margin-top: var(--a2); }
+.bereich + .bereich > .bereich__raster { position: relative; }
+.bereich + .bereich > .bereich__raster::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: calc(-1 * var(--abschnitt));
+  border-top: 1px solid var(--linie);
+}
+.bereich__raster { display: grid; gap: var(--a5); }
 .bereich__kopf { max-width: 40rem; }
-.bereich__marke { display: flex; align-items: center; gap: var(--a2); color: var(--petrol); margin-bottom: var(--a2); }
+.bereich__kopf > p:not([class]) { color: var(--leise); }
+.bereich__marke { display: flex; align-items: center; gap: var(--a2); color: var(--petrol); margin-bottom: var(--a3); }
 .bereich__nr {
   font-family: var(--schrift-titel);
   font-size: 2.25rem;
-  font-weight: 500;
+  font-weight: 400;
   line-height: 1;
   color: var(--wasser);
 }
 .bereich__anzahl { color: var(--leise); font-weight: 700; font-size: var(--fs-min); }
-.punkte { list-style: none; margin: 0; padding: 0; border-top: 2px solid var(--petrol); }
+.punkte { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--linie); }
 .punkte li {
   position: relative;
-  padding: 0.85rem 0 0.85rem 2.25rem;
+  padding: 1rem 0 1rem 2.25rem;
   border-bottom: 1px solid var(--linie);
 }
-.bereich--schilf .punkte li { border-bottom-color: var(--schilf-linie); }
 .punkte li::before {
   /* zwei Wasserlinien als Listenzeichen */
   content: "";
   position: absolute;
   left: 0;
-  top: 1.45rem;
-  width: 1.25rem;
-  height: 0.625rem;
+  top: 1.6rem;
+  width: 1.125rem;
+  height: 0.5rem;
   background:
-    linear-gradient(var(--wasser) 0 0) 0 0 / 100% 3px,
-    linear-gradient(var(--wasser) 0 0) 0 100% / 55% 3px;
+    linear-gradient(var(--wasser) 0 0) 0 0 / 100% 2px,
+    linear-gradient(var(--wasser) 0 0) 0 100% / 55% 2px;
   background-repeat: no-repeat;
 }
+/* Notfälle: Backstein nur an der Nummer – die Liste selbst bleibt ruhig */
 .bereich--notfall .bereich__marke, .bereich--notfall .bereich__nr { color: var(--backstein); }
-.bereich--notfall .punkte { border-top-color: var(--backstein); }
-.bereich--notfall .punkte li::before { background-image: linear-gradient(var(--backstein) 0 0), linear-gradient(var(--backstein) 0 0); }
-.bereich__notfall { margin-top: var(--a5); padding-top: var(--a4); border-top: 1px solid var(--linie); }
-.bereich__notfall h3 { margin-bottom: var(--a3); }
+.bereich__notfall { margin-top: var(--a7); padding-top: var(--a6); border-top: 1px solid var(--linie); }
+.bereich__notfall h3 { margin-bottom: var(--a4); }
 
 /* Notfallwege */
-.notfallwege { display: grid; gap: var(--a2); }
-.notfallweg { gap: 0.5rem; }
+.notfallwege { display: grid; gap: var(--a3); }
+.notfallweg { gap: 0.75rem; }
 .notfallweg p { margin: 0; }
 .notfallweg__titel { font-size: var(--fs-gross); margin: 0; }
 .notfallweg__nummer { align-self: flex-start; min-height: 3rem; margin-top: auto; font-size: 1.625rem; font-weight: 800; }
-.notfallweg--ernst { border: 2px solid var(--backstein); }
+.notfallweg--ernst { border-color: var(--backstein); }
 .notfallweg--ernst .notfallweg__nummer { color: var(--backstein); }
 
 /* ── Besuch ── */
-.zweier { display: grid; gap: var(--a2); margin-top: var(--a3); }
+.zweier { display: grid; gap: var(--a3); margin-top: var(--a4); }
 
 /* ── Kontakt ── */
-.kontaktliste { margin: 0; border-top: 2px solid var(--petrol); }
+.kontaktliste { margin: 0; border-top: 1px solid var(--linie); }
 .kontaktliste__zeile {
   display: grid;
   gap: 0.25rem;
-  padding-block: var(--a2);
+  padding-block: var(--a3);
   border-bottom: 1px solid var(--linie);
 }
 .kontaktliste dt { display: flex; align-items: center; gap: 0.6rem; font-weight: 700; color: var(--leise); }
@@ -707,14 +777,14 @@ main:focus { outline: none; } /* Sprungziel, wird nur programmatisch fokussiert 
   grid-area: 1 / 1;
   align-self: end;
   margin: var(--a2);
-  padding: var(--a3);
+  padding: var(--a4) var(--a3);
   background: var(--weiss);
   border-radius: var(--radius);
-  box-shadow: 0 2px 10px rgba(14, 58, 68, 0.12);
+  box-shadow: var(--schatten);
 }
 .karte__titel { display: flex; align-items: center; gap: 0.5rem; font-weight: 700; color: var(--tief); }
 .karte__titel .icon { color: var(--petrol); }
-.karte__knopf { display: none; margin-top: var(--a2); }
+.karte__knopf { display: none; margin-top: var(--a3); }
 .js .karte__knopf { display: inline-flex; }
 .karte__ohne-js { margin-top: var(--a2); }
 .js .karte__ohne-js { display: none; }
@@ -722,13 +792,13 @@ main:focus { outline: none; } /* Sprungziel, wird nur programmatisch fokussiert 
 .karte__quelle { margin-top: 0.5rem; }
 
 /* Parkplätze */
-.parkliste { display: grid; gap: 0; border-top: 1px solid var(--linie); margin-top: var(--a2); }
+.parkliste { display: grid; gap: 0; border-top: 1px solid var(--linie); margin-top: var(--a3); }
 .parkplatz {
   display: grid;
   grid-template-columns: 3.25rem 1fr;
   gap: var(--a2);
   align-items: start;
-  padding-block: 0.85rem;
+  padding-block: 1.1rem;
   border-bottom: 1px solid var(--linie);
 }
 .parkplatz__nr {
@@ -736,34 +806,37 @@ main:focus { outline: none; } /* Sprungziel, wird nur programmatisch fokussiert 
   place-items: center;
   height: 2.25rem;
   border-radius: var(--radius);
-  background: var(--wasser-hell);
+  background: var(--schilf);
   color: var(--tief);
-  font-weight: 800;
+  font-weight: 700;
   font-size: var(--fs-min);
 }
-.parkplatz--tipp .parkplatz__nr { background: var(--petrol); color: var(--weiss); }
-.download { padding: var(--a3); background: var(--schilf); border-radius: var(--radius-gross); }
+.parkplatz--tipp .parkplatz__nr { background: var(--weiss); color: var(--petrol); box-shadow: inset 0 0 0 1px var(--petrol); }
+.download { padding: var(--a4) var(--a3); background: var(--schilf); border-radius: var(--radius-gross); }
 .download .zwischentitel { margin-top: 0; }
 .download__link {
   display: flex;
   align-items: center;
   gap: var(--a2);
-  margin-block: var(--a2);
-  padding: var(--a2);
+  margin-block: var(--a3);
+  padding: var(--a3) var(--a2);
   background: var(--weiss);
-  border: 2px solid var(--petrol);
+  border: 1px solid var(--weiss);
   border-radius: var(--radius);
   text-decoration: none;
   color: var(--tinte);
+  transition: border-color var(--zeit), box-shadow var(--zeit);
 }
 .download__link .icon { color: var(--petrol); }
 .download__link strong { color: var(--petrol); text-decoration: underline; text-underline-offset: 0.18em; }
-.download__link:hover { background: var(--wasser-hell); }
+@media (hover: hover) {
+  .download__link:hover { border-color: var(--petrol); box-shadow: var(--schatten); }
+}
 .download__quelle { color: var(--leise); }
 
 /* ── Termin ── */
-.termin__raster { display: grid; gap: var(--a5); }
-.telefonkarte { margin-top: var(--a4); }
+.termin__raster { display: grid; gap: var(--a6); }
+.telefonkarte { margin-top: var(--a5); }
 .telefonkarte__nummer a { font-size: clamp(1.75rem, 1.4rem + 1.5vw, 2.5rem); }
 .zeitliste--karte { max-width: 26rem; }
 .zeitliste--karte div { border-bottom: 1px solid var(--linie); }
@@ -774,17 +847,17 @@ main:focus { outline: none; } /* Sprungziel, wird nur programmatisch fokussiert 
 .gutzuwissen p { margin: 0; }
 
 /* ── Rechtstexte ── */
-.rechtstext { display: grid; gap: var(--a4); }
-.rechtstext section { max-width: 68ch; }
+.rechtstext { display: grid; gap: var(--a5); }
+.rechtstext section { max-width: 62ch; }
 .rechtstext h2 { font-size: var(--fs-h3); margin-top: var(--a2); }
-.rechtstext__spalte { display: grid; gap: var(--a4); }
+.rechtstext__spalte { display: grid; gap: var(--a5); }
 .angaben { margin: 0; }
-.angaben div { padding-block: 0.6rem; border-bottom: 1px solid var(--linie); }
+.angaben div { padding-block: 0.85rem; border-bottom: 1px solid var(--linie); }
 .angaben dt { font-weight: 700; }
 .angaben dd { margin: 0; }
 .angaben-hinweis { display: block; margin-top: 0.25rem; font-size: var(--fs-min); font-weight: 400; color: var(--leise); }
 .inhaltsliste {
-  padding: var(--a2) var(--a3);
+  padding: var(--a4) var(--a3);
   background: var(--schilf);
   border-radius: var(--radius-gross);
 }
@@ -799,7 +872,7 @@ main:focus { outline: none; } /* Sprungziel, wird nur programmatisch fokussiert 
 @media (min-width: 37.5em) {
   .kacheln { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .notfallwege { grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); }
-  .zweier { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--a3); }
+  .zweier { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--a4); }
   .hinweis__kopf { grid-template-columns: auto 1fr; align-items: center; }
   .kopf__aktionen { width: auto; flex: 1 1 100%; grid-template-columns: auto auto; justify-content: start; }
   .kontaktliste__zeile { grid-template-columns: 11rem 1fr; align-items: baseline; }
@@ -820,25 +893,21 @@ main:focus { outline: none; } /* Sprungziel, wird nur programmatisch fokussiert 
    Ab 768 px: Tablet
    ============================== */
 @media (min-width: 48em) {
-  .abschnitt { padding-block: var(--a7); }
-  .abschnitt--knapp { padding-block: var(--a5) var(--a7); }
-  .bereich { padding-block: var(--a7); }
-  .seitenkopf { padding-block: var(--a6); }
-  /* Tablet: „Auf einen Blick“ nebeneinander – Sprechzeiten links, Adresse und Telefon rechts */
-  .blick { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); column-gap: var(--a5); }
+  /* Tablet: „Auf einen Blick“ nebeneinander – Sprechzeiten links, Adresse rechts */
+  .blick { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); column-gap: var(--a6); }
   .blick__titel { grid-column: 1 / -1; }
-  .blick__teil:first-of-type { grid-row: span 2; }
   .blick__teil + .blick__teil:nth-of-type(2) { margin-top: 0; padding-top: 0; border-top: 0; }
   .zweispaltig--bild { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: var(--a6); align-items: center; }
   .zweispaltig--bild .fotoplatz__flaeche { max-height: none; }
-  .aufruf { grid-template-columns: 1fr auto; }
+  .aufruf { grid-template-columns: 1fr auto; gap: var(--a6); }
   .fuss__raster { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .kopf__marke img { width: 4rem; }
   .kopf__praxis { font-size: 1.375rem; }
-  .blick { padding: var(--a4); }
-  .hinweis { padding: var(--a4); }
+  .blick, .infokarte, .telefonkarte, .download { padding: var(--a5) var(--a4); }
+  .kachel, .notfallweg { padding: var(--a4); }
+  .hinweis { padding: var(--a5); }
   .held__horizont { height: 11rem; object-position: 50% 100%; }
-  .termin__raster { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: var(--a6); }
+  .termin__raster { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: var(--a7); }
 }
 
 /* ==============================
@@ -846,69 +915,102 @@ main:focus { outline: none; } /* Sprungziel, wird nur programmatisch fokussiert 
    ============================== */
 @media (min-width: 64em) {
   .js .menue-knopf { display: none; }
-  .kopf__zeile { flex-wrap: nowrap; padding-block: var(--a3); }
+  .kopf__zeile { flex-wrap: nowrap; padding-block: var(--a4); }
   .kopf__aktionen { flex: none; display: flex; align-items: center; gap: var(--a2); }
   .kopf__tel-kurz { display: none; }
   .kopf__tel-lang { display: inline; }
   .kopf__telefon.knopf { border-color: transparent; font-size: var(--fs-gross); padding-inline: 0.5rem; }
-  .kopf__telefon.knopf:hover { border-color: var(--linie); }
+  .kopf__telefon.knopf { border-color: transparent; }
+  @media (hover: hover) {
+    .kopf__telefon.knopf:hover { border-color: var(--linie); box-shadow: none; }
+  }
   .kopf__aktionen .kopf__termin { padding-inline: 1.35rem; }
 
-  .hauptnav { background: var(--weiss); }
-  .hauptnav__liste { display: flex; gap: var(--a1); padding-block: 0; }
+  .hauptnav { background: var(--weiss); border-top-color: transparent; }
+  .hauptnav__liste { display: flex; gap: var(--a4); padding-block: 0; }
   .hauptnav__liste a {
+    position: relative;
     min-height: 3.5rem;
-    padding: 0.5rem 1.1rem;
+    padding: 0.5rem 0;
     border-left: 0;
-    border-bottom: 4px solid transparent;
     margin-bottom: -1px;
   }
-  .hauptnav__liste li:first-child a { padding-left: 0; }
+  /* Feine Linie unter dem Menüpunkt, die beim Überfahren von der Mitte aus wächst */
+  .hauptnav__liste a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 2px;
+    background: var(--petrol);
+    transform: scaleX(0);
+    transition: transform var(--zeit) var(--sanft);
+  }
   .hauptnav__liste li + li a { border-top: 0; }
-  .hauptnav__liste a:hover { border-bottom-color: var(--linie); text-decoration: none; }
-  .hauptnav__liste a[aria-current="page"] { border-bottom-color: var(--petrol); background: none; }
+  @media (hover: hover) {
+    .hauptnav__liste a:hover { color: var(--petrol); text-decoration: none; }
+    .hauptnav__liste a:hover::after { transform: scaleX(0.5); }
+  }
+  .hauptnav__liste a[aria-current="page"] { background: none; }
+  .hauptnav__liste a[aria-current="page"]::after { transform: scaleX(1); }
 
-  .held { padding-top: var(--a6); }
-  .held__raster { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: var(--a6); align-items: start; }
+  .held__raster { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: var(--a8); align-items: start; }
   .blick { display: block; }
-  .blick__teil + .blick__teil:nth-of-type(2) { margin-top: var(--a3); padding-top: var(--a3); border-top: 1px solid var(--linie); }
-  .dreier { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-  .held__text { padding-top: var(--a3); }
-  .held__horizont { height: 13.75rem; margin-top: var(--a4); }
+  .blick__teil + .blick__teil:nth-of-type(2) { margin-top: var(--a4); padding-top: var(--a4); border-top: 1px solid var(--schilf-linie); }
+  .dreier { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--a6); }
+  .held__text { padding-top: var(--a4); }
+  .held__horizont { height: 13.75rem; margin-top: var(--a8); }
 
-  .seitenkopf__raster { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: var(--a6); }
-  .zweispaltig { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--a6); }
+  .seitenkopf__raster { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: var(--a8); }
+  .zweispaltig { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--a8); }
   .zweispaltig--breit { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); }
   .zweispaltig--karte { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); align-items: center; }
-  .zweispaltig--parken { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); margin-top: var(--a2); }
-  .zweispaltig--parken .download { margin-top: var(--a5); }
+  .zweispaltig--parken { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); margin-top: var(--a4); }
+  .zweispaltig--parken .download { margin-top: var(--a6); }
 
-  .kacheln { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--a3); }
+  .kacheln { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--a4); }
   .kacheln--drei { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 
-  .bereich__raster { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: var(--a6); align-items: start; }
-  .bereich__kopf { position: sticky; top: var(--a4); }
+  .bereich__raster { grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: var(--a7); align-items: start; }
+  .bereich__kopf { position: sticky; top: var(--a5); }
 
-
-  .hinweis--gross { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: var(--a5); align-items: start; padding: var(--a5); }
+  .hinweis--gross { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: var(--a6); align-items: start; padding: var(--a6); }
   .hinweis--gross .hinweis__kopf { grid-template-columns: 1fr; margin: 0; }
 
-  .rechtstext--mit-liste { grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); gap: var(--a6); align-items: start; }
-  .rechtstext--mit-liste .inhaltsliste { position: sticky; top: var(--a4); }
+  .rechtstext--mit-liste { grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); gap: var(--a8); align-items: start; }
+  .rechtstext--mit-liste .inhaltsliste { position: sticky; top: var(--a5); }
   /* Impressum: zwei Textspalten, die Abschnitte fließen ohne Lücken nacheinander */
-  .rechtstext:not(.rechtstext--mit-liste) { display: block; columns: 2; column-gap: var(--a6); }
-  .rechtstext:not(.rechtstext--mit-liste) section { break-inside: avoid; margin-bottom: var(--a5); }
+  .rechtstext:not(.rechtstext--mit-liste) { display: block; columns: 2; column-gap: var(--a8); }
+  .rechtstext:not(.rechtstext--mit-liste) section { break-inside: avoid; margin-bottom: var(--a6); }
   .rechtstext:not(.rechtstext--mit-liste) h2 { margin-top: 0; }
 }
 
 @media (min-width: 80em) {
   .held h1 { font-size: 3.75rem; }
-  .fuss__raster { grid-template-columns: 1.15fr 1.25fr 1fr 0.8fr; gap: var(--a5) var(--a4); }
+  .fuss__raster { grid-template-columns: 1.15fr 1.25fr 1fr 0.8fr; gap: var(--a6) var(--a5); }
 }
+
+/* ── Sanftes Einblenden beim Scrollen ──
+   Das Skript setzt .bewegung auf <html> nur, wenn der Browser es kann und keine reduzierte
+   Bewegung gewünscht ist. Ohne Skript, beim Drucken und bei reduzierter Bewegung ist alles
+   sofort sichtbar. Verschoben wird mit `translate`, damit `transform` für Hover frei bleibt. */
+@keyframes einblenden {
+  from { opacity: 0; translate: 0 1.25rem; }
+  to   { opacity: 1; translate: 0 0; }
+}
+.bewegung .einblenden:not(.ist-sichtbar) { opacity: 0; }
+.bewegung .einblenden.ist-sichtbar {
+  animation: einblenden var(--zeit-ruhig) var(--sanft) backwards;
+  animation-delay: var(--verzoegerung, 0ms);
+}
+/* Wer mit der Tastatur hineinspringt, sieht den Inhalt sofort */
+.bewegung .einblenden:focus-within { opacity: 1; animation: none; }
 
 /* ── Bewegung reduzieren ── */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { transition: none !important; animation: none !important; scroll-behavior: auto !important; }
+  .kachel--link:hover { transform: none; }
 }
 
 /* ── Druck ── */
@@ -916,6 +1018,7 @@ main:focus { outline: none; } /* Sprungziel, wird nur programmatisch fokussiert 
   .kopf__aktionen, .menue-knopf, .hauptnav, .sprunglink, .karte, .held__horizont, .fuss__wasser { display: none !important; }
   .fuss { background: none; color: #000; }
   .fuss a, a { color: #000; }
+  .einblenden { opacity: 1 !important; animation: none !important; }
 }
 
 /* ── Schlichte Zwischenseite (z. B. Terminbuchung) ── */

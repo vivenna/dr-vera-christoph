@@ -13,7 +13,17 @@ die Flächen, ein gedecktes Backsteinrot (wie die Altstadt) markiert Hinweise, d
 man nicht übersehen soll: Parkhaus, Pupillenerweiterung, Notfall.
 Die Seiten sind nach den Fragen einer Patientin geschnitten, nicht nach einem
 Menü-Schema: *Was bieten Sie an? Wann sind Sie da und was bringe ich mit? Wie komme
-ich hin und wo parke ich?* Große Schrift, klare Schaltflächen, keine Effekte.
+ich hin und wo parke ich?* Große Schrift, klare Schaltflächen, viel Weißraum.
+
+**Ruhe und Weißraum (Überarbeitung September 2026).** Die Abstände zwischen den
+Abschnitten wachsen mit der Bildschirmbreite (`--abschnitt`: 72 px auf dem Telefon bis
+144 px auf großen Bildschirmen), Textspalten sind auf 62 Zeichen begrenzt, die
+Inhaltsbreite auf 72rem. Es gibt nur noch eine getönte Fläche (Sand) im Wechsel mit
+Weiß; Hellwasser-Abschnitte, volle Petrol-Kacheln und dicke Farbkanten sind entfallen.
+Backstein erscheint nur noch als feine Kante und Symbol an echten Hinweisen (Parkhaus,
+Pupillenerweiterung, Notfall). Bewegung ist schlicht: Inhalte blenden beim Scrollen
+einmal sanft ein (0,8 s, leicht gestaffelt), Kacheln heben sich beim Überfahren kaum
+merklich an, Unterstreichungen und Menülinien werden beim Überfahren kräftiger.
 
 ## 2. Seitenübersicht
 
@@ -23,7 +33,7 @@ JavaScript), Impressum und Datenschutz stehen in der Fußzeile.
 
 | Datei | Inhalt | Pflichtinhalt laut Auftrag |
 |---|---|---|
-| `index.html` | Begrüßung, „Auf einen Blick“ (Sprechzeiten, Adresse mit Parkhinweis, Telefon), Schlei-Horizont, Kurzvorstellung mit Foto-Platzhalter, die fünf Leistungsbereiche als Kacheln, das Wichtigste zum Besuch, Anfahrt mit Parkhinweis | Startseite |
+| `index.html` | Begrüßung mit Termin- und Telefon-Schaltfläche, „Auf einen Blick“ (Sprechzeiten, Adresse mit Parkhinweis), Schlei-Horizont, Kurzvorstellung, die fünf Leistungsbereiche als Kacheln, das Wichtigste zum Besuch, Anfahrt mit Parkhinweis | Startseite |
 | `leistungen.html` | Einleitung, Sprungliste, fünf nummerierte Bereiche mit **allen 53 Leistungen** (auf jeder Breite vollständig sichtbar), Notfallnummern in voller Breite, Aufruf zum Anruf | Leistungen |
 | `besuch.html` | Sprechzeiten-Tabelle mit „sowie nach Vereinbarung“ und telefonischer Erreichbarkeit, **was mitzubringen ist** (sechs Kacheln), **Pupillenerweiterung und Fahrtüchtigkeit**, **Begleitung** und Zugang (Platzhalter), **Notfälle** (Praxis, 116 117, 112, Verätzungen) | Sprechzeiten **und** Wichtige Infos, auf einer Seite zusammengefasst |
 | `kontakt.html` | Kontaktwege (Telefon, E-Mail, Fax, Anschrift, Sprachen), Lage und **Karte (Zwei-Klick)**, **Parken** (gesperrtes Parkhaus, drei Empfehlungen, acht Parkplätze in Gehweite, **Faltblatt der Stadt als PDF**), Bus, Park-and-Ride und Smile24 | Kontakt |
@@ -44,16 +54,16 @@ große Schrift und Bedienelemente ≥ 3:1).
 | Farbe | Name | Rolle | Gemessener Kontrast |
 |---|---|---|---|
 | `#17282d` | Tinte | Fließtext | 15,24:1 auf Weiß · 13,65:1 auf Sand · 13,12:1 auf Hellwasser · 13,49:1 auf Hellbackstein |
-| `#4c5d62` | Leise | Nebentext, Beschriftungen | 6,89:1 auf Weiß · 6,17:1 auf Sand · 5,93:1 auf Hellwasser |
+| `#4c5d62` | Leise | Nebentext, Beschriftungen, Dachzeilen | 6,89:1 auf Weiß · 6,17:1 auf Sand · 5,93:1 auf Hellwasser |
 | `#14505e` | Petrol (Schleiwasser) | Links, Schaltflächen, Logo, Symbole | 8,98:1 auf Weiß · 8,04:1 auf Sand · 7,73:1 auf Hellwasser · Weiß darauf 8,98:1 |
 | `#0e3a44` | Tiefwasser | Überschriften, Fußzeile | 12,30:1 auf Weiß · 11,02:1 auf Sand · Weiß darauf 12,30:1 · Sand darauf 11,02:1 |
 | `#2f7f88` | Wasser | Wasserlinien im Logo, Listenzeichen, Haken, große Bereichsnummern „01“–„05“ (36 px) | 4,65:1 auf Weiß · 4,17:1 auf Sand · 2,64:1 auf Tiefwasser (dort nur als Zierlinie) |
-| `#a2472a` | Backstein | Dachzeilen, Hinweise, Platzhalter, Fokusrahmen | 6,05:1 auf Weiß · 5,42:1 auf Sand · 5,36:1 auf Hellbackstein · 5,21:1 auf Hellwasser · Weiß darauf 6,05:1 |
-| `#f2c879` | Bernstein | Titel und Fokusrahmen in der Fußzeile, Fokus auf Petrol | 7,80:1 auf Tiefwasser · 5,69:1 auf Petrol |
+| `#a2472a` | Backstein | nur echte Hinweise (feine Kante, Symbol), Notfall-Nummern, Platzhalter, Fokusrahmen | 6,05:1 auf Weiß · 5,42:1 auf Sand · 5,36:1 auf Hellbackstein · 5,21:1 auf Hellwasser · Weiß darauf 6,05:1 |
+| `#f2c879` | Bernstein | Fokusrahmen in der Fußzeile und auf Petrol | 7,80:1 auf Tiefwasser · 5,69:1 auf Petrol |
 | `#f6f2ea` | Sand (Schilf) | ruhige Flächen, Seitenköpfe | Fläche |
-| `#e6f0ef` | Hellwasser | Infokästen, „Auf einen Blick“ | Fläche |
+| `#e6f0ef` | Hellwasser | zurzeit ungenutzt (Infokästen und Abschnitte stehen jetzt auf Sand) | Fläche |
 | `#faefe9` | Hellbackstein | Hinweiskästen, Platzhalter-Hintergrund | Fläche |
-| `#cad9d8`, `#d9cfbd` | Linien | Haarlinien auf Weiß bzw. Sand | nur Schmuck, nie Text |
+| `#cad9d8`, `#d9cfbd` | Linien | Haarlinien auf Weiß bzw. Sand; `#cad9d8` zusätzlich Spaltentitel in der Fußzeile (8,45:1 auf Tiefwasser) | Text nur auf Tiefwasser |
 
 Keine dieser Farben stammt von der Visitenkarte (`#615e79`, `#89859f`, `#a5a3bb`,
 `#c2c3d6`, `#eef0f6`, `#275895`) oder aus der Referenz (`#4b79ce`, `#7bbd64`).
@@ -99,7 +109,7 @@ Sprechzeiten, Kontakt, Fußzeile) auf die neue Adresse.
 
 **Vor dem Umschalten** in `quelltext/gemeinsam/praxis.mjs` unter `rechtliches.terminAnbieter`
 den Anbieter eintragen. Sobald `terminUrl` extern ist, stellen sich die Hinweistexte
-(Startseite, Sprechzeiten, Beschreibung der Termin-Seite, Datenschutzerklärung) automatisch
+(Sprechzeiten, Beschreibung der Termin-Seite, Datenschutzerklärung) automatisch
 auf „online oder telefonisch“ um. In der Datenschutzerklärung erscheint dann der Platzhalter
 „[Angaben zur Datenverarbeitung bei der Online-Terminbuchung folgen …]“. Er muss vor dem
 Livegang durch die Angaben des Anbieters ersetzt werden (Anbieter, Daten, Rechtsgrundlage,
@@ -115,7 +125,7 @@ Speicherdauer).
 | Einstellungen (Titel, Theme-Farbe, Vorschaubild) | `quelltext/03-frei/entwurf.mjs` |
 | Praxisdaten, Sprechzeiten, Parken, Karte (gemeinsam für alle Entwürfe) | `quelltext/gemeinsam/praxis.mjs` |
 | Stylesheet (mobile first, Stufen 600 / 768 / 1024 / 1280 px) | `entwuerfe/03-frei/assets/css/stil.css` |
-| Skript (Menü, heutiger Tag, Karte) | `entwuerfe/03-frei/assets/js/seite.js` |
+| Skript (Menü, heutiger Tag, Karte, Einblenden beim Scrollen) | `entwuerfe/03-frei/assets/js/seite.js` |
 
 ```sh
 cd <Repository>
@@ -127,10 +137,14 @@ CSS, Skript, Schriften und Grafiken werden hier direkt gepflegt. Sprechzeiten, T
 und Adresse stehen nirgends von Hand im Quelltext, sie kommen aus `praxis.mjs`.
 
 **Ohne JavaScript** ist das Menü als Liste immer offen, der Termin-Link und alle Seiten
-sind erreichbar, die Karte bleibt als Link zu OpenStreetMap nutzbar. Das Skript
-(unter 3 KB) klappt nur das Menü auf dem Telefon ein (Esc schließt, Fokus kehrt
-zurück), markiert in den Sprechzeiten-Tabellen den heutigen Tag und lädt auf Wunsch
-die Karte.
+sind erreichbar, die Karte bleibt als Link nutzbar. Das Skript (unter 6 KB) klappt
+das Menü auf dem Telefon ein (Esc schließt, Fokus kehrt zurück), markiert in den
+Sprechzeiten-Tabellen den heutigen Tag, lädt auf Wunsch die Karte und blendet Inhalte
+beim Scrollen ein. Das Einblenden entfällt ohne JavaScript, bei „Bewegung reduzieren“
+im Betriebssystem, beim Drucken und in automatisierten Browsern (`navigator.webdriver`,
+damit Prüfskript und Bildschirmfotos die ganze Seite sehen). Was beim Laden schon im
+Bild ist, steht sofort da; springt der Tastaturfokus in einen noch verborgenen Bereich,
+erscheint er ohne Verzögerung.
 
 ## 7. Karte und Datenschutz
 
@@ -182,9 +196,9 @@ Datenschutz unter `praxis.rechtliches` (`approbation`, `kammer`, `aufsicht`, `be
 - **Parkplätze:** Die Liste auf `kontakt.html` folgt dem Faltblatt (Stand 18.12.2025).
   Bis zur Eröffnung des neuen Parkhauses (voraussichtlich 2028) kann sich die Lage
   ändern; die Daten stehen gemeinsam in `praxis.mjs`.
-- **Stylesheet-Größe:** `stil.css` ist mit rund 35 KB größer als die Vorgabe von
+- **Stylesheet-Größe:** `stil.css` ist mit rund 39 KB größer als die Vorgabe von
   30 KB. Die Datei ist von Hand geschrieben, lesbar formatiert und deutsch kommentiert;
-  mit gzip, wie GitHub Pages sie ausliefert, werden rund 9 KB übertragen. Wer die
+  mit gzip, wie GitHub Pages sie ausliefert, werden rund 10 KB übertragen. Wer die
   Grenze streng einhalten will, müsste Kommentare entfernen oder die Datei verkleinern.
 - **Sprechzeiten auf dem Telefon:** `besuch.html` enthält die große Sprechzeiten-Tabelle
   in zwei Fassungen: bis 600 px „Tag | Zeiten untereinander“, darüber „Tag | Vormittag |

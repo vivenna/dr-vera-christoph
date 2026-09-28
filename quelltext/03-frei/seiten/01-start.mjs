@@ -1,5 +1,5 @@
 // Startseite: alle Kerninformationen auf einen Blick.
-import { icon, anschrift, dachzeile, terminKnopf, telefonKnopf, sprechzeitenTabelle, BEREICHE, anzahl } from '../bausteine.mjs';
+import { icon, anschrift, dachzeile, terminKnopf, telefonKnopf, sprechzeitenTabelle, BEREICHE } from '../bausteine.mjs';
 
 export const seite = {
   datei: 'index.html',
@@ -17,7 +17,6 @@ export default function inhalt(ctx) {
           ${icon(BEREICHE[b.id].icon, 'icon icon--gross')}
           <h3 class="kachel__titel"><a href="leistungen.html#${b.id}">${b.titel}</a></h3>
           <p>${BEREICHE[b.id].kurztext}</p>
-          <p class="kachel__fuss">${anzahl(b.punkte.length, b.id)}</p>
         </li>`).join('');
 
   return `
@@ -27,9 +26,6 @@ export default function inhalt(ctx) {
       ${dachzeile('Augenarztpraxis in der Schleswiger Altstadt')}
       <h1 id="start-titel">Ihre Augenärztin mitten in Schleswig</h1>
       <p class="einleitung">Willkommen in der Praxis von ${esc(praxis.aerztin)}, ${esc(praxis.fachrichtung)}. Wir sind für Sie da, wenn es um Ihre Augen geht: bei der Vorsorge, bei Beschwerden, für ein Führerscheingutachten und im Notfall.</p>
-      <p>${ctx.termin.extern
-        ? 'Ihren Termin buchen Sie online oder vereinbaren ihn telefonisch – ganz wie es Ihnen lieber ist.'
-        : 'Einen Termin vereinbaren Sie am einfachsten telefonisch. Wir freuen uns auf Ihren Anruf.'}</p>
       <div class="knopfreihe">
         ${terminKnopf(ctx)}
         ${telefonKnopf(ctx)}
@@ -46,10 +42,6 @@ export default function inhalt(ctx) {
         <h3>${icon('ort')}<span>Adresse</span></h3>
         <address>${esc(praxis.adresse.strasse)}<br>${esc(praxis.adresse.plz)} ${esc(praxis.adresse.stadt)}</address>
         <p class="blick__warnung">${icon('parken')}<span>Das Parkhaus in der Innenstadt ist gesperrt. <a href="kontakt.html#parken">So parken Sie in der Nähe</a></span></p>
-      </div>
-      <div class="blick__teil">
-        <h3>${icon('telefon')}<span>Telefon</span></h3>
-        <p class="blick__telefon">${ctx.telefonLink()}</p>
       </div>
     </section>
   </div>
@@ -80,7 +72,6 @@ export default function inhalt(ctx) {
         ${icon('wellen', 'icon icon--gross')}
         <h3 class="kachel__titel"><a href="leistungen.html">Alle Leistungen im Überblick</a></h3>
         <p>Die vollständige Liste mit Erklärungen zu jedem Bereich.</p>
-        <p class="kachel__fuss">Fünf Bereiche, von der Vorsorge bis zum Notfall</p>
       </li>
     </ul>
   </div>

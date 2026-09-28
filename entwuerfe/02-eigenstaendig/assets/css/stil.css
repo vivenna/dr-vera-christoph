@@ -50,7 +50,9 @@ p { max-width: 68ch; }
 strong, b { font-weight: 650; }
 address { margin: 0 0 var(--a2); font-style: normal; }
 a { color: var(--blau); text-decoration-thickness: 1px; text-underline-offset: .18em; }
-a:hover { color: var(--blau-dunkel); text-decoration-thickness: 2px; }
+@media (hover: hover) {
+  a:hover { color: var(--blau-dunkel); text-decoration-thickness: 2px; }
+}
 a[href^="tel:"] { white-space: nowrap; }
 :focus-visible { outline: 3px solid var(--blau); outline-offset: 3px; }
 [hidden] { display: none !important; }
@@ -91,10 +93,14 @@ a[href^="tel:"] { white-space: nowrap; }
   font: inherit; font-weight: 650; line-height: 1.2; text-align: center; text-decoration: none; cursor: pointer;
   transition: background-color .15s, border-color .15s, color .15s;
 }
-.knopf:hover { border-color: var(--blau-dunkel); background: var(--blau-dunkel); color: var(--weiss); }
+@media (hover: hover) {
+  .knopf:hover { border-color: var(--blau-dunkel); background: var(--blau-dunkel); color: var(--weiss); }
+}
 .knopf .symbol { width: 1.375rem; height: 1.375rem; }
 .knopf-zweit { background: var(--weiss); color: var(--blau); }
-.knopf-zweit:hover { background: var(--lederhaut); color: var(--blau-dunkel); }
+@media (hover: hover) {
+  .knopf-zweit:hover { background: var(--lederhaut); color: var(--blau-dunkel); }
+}
 .knopf-klein { min-height: 2.75rem; padding: .5rem 1rem; }
 .knopf-gross { min-height: 3.5rem; padding-inline: 1.75rem; font-size: 1.375rem; }
 .knopf-gross .symbol { width: 1.75rem; height: 1.75rem; }
@@ -103,13 +109,17 @@ a[href^="tel:"] { white-space: nowrap; }
 .mehr-link, .praxiskarte-telefon a, .download, .karte-extern, .karte-quelle a, .hoch-link, .notfall-nummer, .gross-link, .sprungliste a, .angaben a, .fuss-telefon, .fuss-link, .fuss-recht a { display: inline-flex; align-items: center; min-height: 2.75rem; }
 .mehr-link { gap: .5rem; font-weight: 650; }
 .mehr-link .symbol { width: 1.25rem; height: 1.25rem; transition: transform .15s; }
-.mehr-link:hover .symbol { transform: translateX(3px); }
+@media (hover: hover) {
+  .mehr-link:hover .symbol { transform: translateX(3px); }
+}
 
 /* ---------- Kopf ---------- */
 .kopf { border-bottom: var(--haar); background: var(--weiss); }
 .kopf-innen { display: grid; grid-template: "marke knopf" "nav nav" / minmax(0, 1fr) auto; align-items: center; column-gap: var(--a2); padding-block: .75rem; }
 .marke { grid-area: marke; display: flex; align-items: center; gap: .5rem; min-height: 2.75rem; color: var(--text); text-decoration: none; }
-.marke:hover { color: var(--text); }
+@media (hover: hover) {
+  .marke:hover { color: var(--text); }
+}
 .marke-bild { flex: none; width: 2.25rem; }
 .marke-text { display: flex; flex-direction: column; line-height: 1.2; }
 .marke-name { font: 600 1.125rem var(--schrift-titel); color: var(--tinte); }
@@ -134,7 +144,9 @@ a[href^="tel:"] { white-space: nowrap; }
   display: flex; align-items: center; min-height: 3rem; padding: .5rem .875rem;
   border: var(--haar); border-radius: var(--radius); color: var(--text); font-weight: 550; text-decoration: none;
 }
-.hauptnav a:hover { border-color: var(--tinte); color: var(--text); }
+@media (hover: hover) {
+  .hauptnav a:hover { border-color: var(--tinte); color: var(--text); }
+}
 .hauptnav a[aria-current="page"] { border-color: var(--tinte); background: var(--lederhaut); box-shadow: inset 5px 0 0 var(--tinte); color: var(--tinte); font-weight: 700; }
 /* Mit JavaScript: eingeklappt, öffnet als Liste unter dem Kopf */
 .js .hauptnav-liste { display: none; grid-template-columns: 1fr; gap: 0; }
@@ -153,7 +165,9 @@ a[href^="tel:"] { white-space: nowrap; }
   display: inline-flex; align-items: center; justify-content: center; gap: .4rem;
   border: 2px solid var(--blau); border-radius: var(--radius); background: var(--weiss); color: var(--blau); font-weight: 650; text-decoration: none;
 }
-.kopf-telefon:hover { background: var(--lederhaut); }
+@media (hover: hover) {
+  .kopf-telefon:hover { background: var(--lederhaut); }
+}
 .kopf-telefon-lang { display: none; }
 
 /* ---------- Gerüst: Stichwort, Randspalte, Abschnitte ---------- */
@@ -241,12 +255,17 @@ a[href^="tel:"] { white-space: nowrap; }
   position: relative; display: flex; flex-direction: column; gap: .375rem; padding: var(--a3);
   border: var(--haar); border-radius: var(--radius); background: var(--weiss); transition: border-color .15s;
 }
-.bereich-kachel:hover, .bereich-kachel:focus-within { border-color: var(--blau); }
+.bereich-kachel:focus-within { border-color: var(--blau); }
+@media (hover: hover) {
+  .bereich-kachel:hover { border-color: var(--blau); }
+}
 .bereich-kopf { display: flex; align-items: center; justify-content: space-between; margin-bottom: .5rem; }
 .bereich-nr { font: 600 2rem/1 var(--schrift-titel); color: var(--tinte); font-variant-numeric: lining-nums; }
 .bereich-link { display: flex; align-items: center; min-height: 2.75rem; font: 600 var(--fs-h3)/1.25 var(--schrift-titel); text-decoration: none; }
 .bereich-link::after { content: ''; position: absolute; inset: 0; border-radius: inherit; }
-.bereich-kachel:hover .bereich-link { text-decoration: underline; }
+@media (hover: hover) {
+  .bereich-kachel:hover .bereich-link { text-decoration: underline; }
+}
 .bereich-text { color: var(--text-leise); }
 .bereich-anzahl { margin-top: auto; padding-top: .5rem; color: var(--tinte); font-weight: 650; }
 
@@ -301,7 +320,9 @@ a[href^="tel:"] { white-space: nowrap; }
   height: 100%; min-height: 2.75rem; padding: .875rem var(--a2); border: var(--haar); border-radius: var(--radius);
   color: var(--text); text-decoration: none; transition: border-color .15s, background-color .15s;
 }
-.bereich-sprung a:hover { border-color: var(--blau); background: var(--lederhaut); color: var(--text); }
+@media (hover: hover) {
+  .bereich-sprung a:hover { border-color: var(--blau); background: var(--lederhaut); color: var(--text); }
+}
 .bereich-sprung .bereich-nr { display: none; }
 .bereich-sprung .symbol-bereich { grid-area: symbol; width: 2.75rem; height: 2.75rem; }
 .bereich-sprung-titel { grid-area: titel; color: var(--blau); font-weight: 650; line-height: 1.3; }
@@ -332,7 +353,9 @@ a[href^="tel:"] { white-space: nowrap; }
   align-self: flex-start; min-width: 2.75rem; 
   font: 600 clamp(1.625rem, 1.4rem + 1vw, 2.125rem) var(--schrift-titel); text-decoration: none; font-variant-numeric: lining-nums;
 }
-.notfall-nummer:hover { text-decoration: underline; }
+@media (hover: hover) {
+  .notfall-nummer:hover { text-decoration: underline; }
+}
 .notfall-wer { color: var(--text-leise); }
 .notfall-kacheln .notfall-112 { border-color: var(--tinte); background: var(--tinte); }
 .notfall-112 .notfall-wann, .notfall-112 .notfall-wer, .notfall-112 a { color: var(--weiss); }
@@ -398,7 +421,9 @@ a[href^="tel:"] { white-space: nowrap; }
 .inhaltsverzeichnis { margin-bottom: var(--a2); }
 .inhaltsverzeichnis ol { display: grid; margin: 0; padding: 0; list-style: none; }
 .inhaltsverzeichnis a { display: block; min-height: 2.75rem; padding-block: .375rem; border-bottom: var(--haar); text-decoration: none; }
-.inhaltsverzeichnis a:hover { text-decoration: underline; }
+@media (hover: hover) {
+  .inhaltsverzeichnis a:hover { text-decoration: underline; }
+}
 
 /* ---------- Fuß: hell, mehrspaltig ---------- */
 .fuss { margin-top: var(--abschnitt); background: var(--lederhaut); }
@@ -492,19 +517,25 @@ a[href^="tel:"] { white-space: nowrap; }
   .kopf-aktionen { position: static; grid-area: aktionen; align-items: center; gap: var(--a4); padding: 0; border: 0; background: none; box-shadow: none; }
   .kopf-aktionen > * { flex: none; }
   .kopf-telefon { justify-content: flex-start; gap: .75rem; padding: 0; border: 0; background: none; color: var(--text); }
-  .kopf-telefon:hover { background: none; color: var(--text); }
+  @media (hover: hover) {
+    .kopf-telefon:hover { background: none; color: var(--text); }
+  }
   .kopf-telefon .symbol { width: 2.25rem; height: 2.25rem; color: var(--tinte); }
   .kopf-telefon-lang { display: flex; flex-direction: column; line-height: 1.2; }
   .kopf-telefon-label { color: var(--text-leise); font-size: var(--fs-klein); font-weight: 400; }
   .kopf-telefon-nummer { color: var(--blau); font-size: 1.375rem; font-weight: 650; }
-  .kopf-telefon:hover .kopf-telefon-nummer { text-decoration: underline; }
+  @media (hover: hover) {
+    .kopf-telefon:hover .kopf-telefon-nummer { text-decoration: underline; }
+  }
   .kopf-telefon-kurz { display: none; }
 
   /* Textnavigation mit Balken unter der aktiven Seite */
   .hauptnav { margin-top: var(--a3); border-top: var(--haar); }
   .hauptnav-liste, .js .hauptnav-liste { display: flex; flex-wrap: wrap; gap: 0 clamp(1.5rem, 3vw, 3rem); margin: 0; }
   .hauptnav a, .js .hauptnav a { min-height: 3.5rem; margin-bottom: -1px; padding: .75rem 0; border: 0; border-bottom: 5px solid transparent; border-radius: 0; }
-  .hauptnav a:hover { border-bottom-color: var(--iris); }
+  @media (hover: hover) {
+    .hauptnav a:hover { border-bottom-color: var(--iris); }
+  }
   .hauptnav a[aria-current="page"] { border-bottom-color: var(--tinte); background: none; box-shadow: none; }
 
   .einstieg { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); align-items: center; padding-top: var(--a6); }
