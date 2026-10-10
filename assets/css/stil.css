@@ -390,17 +390,69 @@ main:focus { outline: none; } /* Sprungziel, wird nur programmatisch fokussiert 
   /* Springt man per Anker nach oben, erscheint der Kopf: Ziel nicht darunter verstecken */
   html.js { scroll-padding-top: 10rem; }
   .js .hauptnav:not(.ist-offen) { display: none; }
-  /* Aufgeklappt: legt sich als schwebende Karte über den Seiteninhalt,
-     statt ihn nach unten zu schieben */
+  /* Offenes Menü: Seite dahinter lässt sich nicht scrollen */
+  html.menue-offen, html.menue-offen body { overflow: hidden; }
+  /* Aufgeklappt: füllt den Bildschirm unter dem Kopf, Seiteninhalt bleibt verdeckt
+     und wird nicht nach unten geschoben. 100 % bezieht sich hier auf die Kopfhöhe. */
   .js .hauptnav.ist-offen {
     position: absolute;
-    inset: calc(100% + 0.5rem) var(--a2) auto;
+    inset: 100% 0 auto;
     z-index: 40;
-    max-height: 80vh;
+    display: flex;
+    height: calc(100vh - 100%);
+    height: calc(100dvh - 100%);
     overflow-y: auto;
-    border-radius: var(--radius-gross);
-    box-shadow: var(--schatten);
+    overscroll-behavior: contain;
+    border-top: 1px solid var(--linie);
     animation: hauptnav-einblenden var(--zeit) var(--sanft);
+  }
+  .js .hauptnav .rahmen {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    padding-bottom: var(--a6);
+  }
+  .js .hauptnav__liste {
+    flex: 1;
+    align-content: center;
+    gap: var(--a1);
+    padding-block: var(--a4);
+    text-align: center;
+  }
+  .js .hauptnav__liste a {
+    position: relative;
+    justify-content: center;
+    min-height: 4rem;
+    padding: 0.5rem 0;
+    border-radius: 0;
+    background: none;
+    font-family: var(--schrift-titel);
+    font-size: 1.625rem;
+    line-height: 1.3;
+    color: var(--tief);
+  }
+  .js .hauptnav__liste a[aria-current="page"] { background: none; color: var(--petrol); }
+  /* Kurze Wasserlinie unter dem aktuellen Menüpunkt */
+  .js .hauptnav__liste a[aria-current="page"]::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: 0.25rem;
+    width: 2rem;
+    height: 2px;
+    margin-left: -1rem;
+    background: var(--wasser);
+  }
+  /* Drei Wasserlinien als Abschluss, wie im Seitenfuß */
+  .js .hauptnav .rahmen::after {
+    content: "";
+    flex: none;
+    height: 14px;
+    opacity: 0.6;
+    background:
+      linear-gradient(var(--wasser), var(--wasser)) 0 0 / 40% 2px no-repeat,
+      linear-gradient(var(--wasser), var(--wasser)) 0 6px / 70% 2px no-repeat,
+      linear-gradient(var(--wasser), var(--wasser)) 0 12px / 100% 2px no-repeat;
   }
 }
 

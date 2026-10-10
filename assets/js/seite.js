@@ -43,6 +43,8 @@
     var setzen = function (offen) {
       knopf.setAttribute('aria-expanded', String(offen));
       menue.classList.toggle('ist-offen', offen);
+      // Hinter dem offenen Menü soll die Seite nicht scrollen
+      document.documentElement.classList.toggle('menue-offen', offen);
     };
     knopf.addEventListener('click', function () {
       var offen = knopf.getAttribute('aria-expanded') !== 'true';
