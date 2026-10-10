@@ -40,11 +40,20 @@
   var menue = document.getElementById('hauptmenue');
 
   if (knopf && menue) {
+    var scrollMerker = 0;
     var setzen = function (offen) {
+      var war = knopf.getAttribute('aria-expanded') === 'true';
+      if (offen && !war) scrollMerker = window.pageYOffset;
       knopf.setAttribute('aria-expanded', String(offen));
       menue.classList.toggle('ist-offen', offen);
       // Hinter dem offenen Menü soll die Seite nicht scrollen
       document.documentElement.classList.toggle('menue-offen', offen);
+      // Die Scrollsperre darf die Position nicht zurücksetzen: beim Schließen wiederherstellen
+      if (!offen && war) {
+        window.scrollTo({ top: scrollMerker, left: 0, behavior: 'instant' });
+        // Das Zurückspringen zählt nicht als Runterscrollen: Kopf bleibt sichtbar (siehe 1b)
+        letzte = scrollMerker;
+      }
     };
     knopf.addEventListener('click', function () {
       var offen = knopf.getAttribute('aria-expanded') !== 'true';
