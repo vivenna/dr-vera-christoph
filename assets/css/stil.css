@@ -1020,7 +1020,7 @@ main:focus { outline: none; } /* Sprungziel, wird nur programmatisch fokussiert 
   }
   .hauptnav__liste li + li a { border-top: 0; }
   @media (hover: hover) {
-    .hauptnav__liste a:hover { color: var(--petrol); text-decoration: none; }
+    .hauptnav__liste a:hover { background: none; color: var(--petrol); text-decoration: none; }
     .hauptnav__liste a:hover::after { transform: scaleX(0.5); }
   }
   .hauptnav__liste a[aria-current="page"] { background: none; }
