@@ -1051,9 +1051,9 @@ main:focus { outline: none; } /* Sprungziel, wird nur programmatisch fokussiert 
 
   .rechtstext--mit-liste { grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); gap: var(--a8); align-items: start; }
   .rechtstext--mit-liste .inhaltsliste { position: sticky; top: var(--a5); }
-  /* Impressum: zwei Textspalten, die Abschnitte fließen ohne Lücken nacheinander */
-  .rechtstext:not(.rechtstext--mit-liste) { display: block; columns: 2; column-gap: var(--a8); }
-  .rechtstext:not(.rechtstext--mit-liste) section { break-inside: avoid; margin-bottom: var(--a6); }
+  /* Impressum: zwei Textspalten als Grid (CSS-Spalten ließen in Safari unten zu viel Leerraum) */
+  .rechtstext:not(.rechtstext--mit-liste) { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: var(--a8); align-items: start; }
+  .rechtstext:not(.rechtstext--mit-liste) .rechtstext__spalte { gap: var(--a6); }
   .rechtstext:not(.rechtstext--mit-liste) h2 { margin-top: 0; }
 }
 
