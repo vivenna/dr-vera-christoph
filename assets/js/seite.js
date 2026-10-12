@@ -190,7 +190,7 @@
 
   /* ── 5. Hinweis zum Praxisurlaub ───────────────────────────────────────── */
   // Erscheint bei jedem neuen Besuch der Website, nicht beim Weiterklicken von Seite zu
-  // Seite: Wer von einer Seite dieser Website kommt (Referrer), sieht ihn nicht erneut.
+  // Seite: Wer von einer Seite dieser Website kommt (Referrer) oder die Seite neu lädt, sieht ihn nicht erneut.
   // Es wird nichts im Browser gespeichert. Nach dem Urlaub verschwindet er von selbst.
   // Neuen Urlaub eintragen: `bis` (erster Tag nach dem Urlaub, mit Zeitzone) und die
   // Texte ändern. Ist `bis` vorbei, passiert nichts.
@@ -213,6 +213,11 @@
     var refUrl = new URL(ref);
     intern = refUrl.origin === location.origin && refUrl.pathname.indexOf('/entwuerfe/') === -1;
   } catch (fehler) { /* kein Referrer: direkter Aufruf, Lesezeichen oder neuer Tab */ }
+  // Neu laden (F5): Der Hinweis wurde schon gesehen, er erscheint nicht noch einmal.
+  try {
+    var navigation = performance.getEntriesByType('navigation')[0];
+    if (navigation && navigation.type === 'reload') intern = true;
+  } catch (fehler) { /* Navigation Timing nicht verfügbar */ }
 
   if (!urlaubVorbei && !intern && typeof HTMLDialogElement === 'function') {
     var dialog = document.createElement('dialog');
